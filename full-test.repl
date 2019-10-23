@@ -1,0 +1,216 @@
+
+;-----------------SETUP-------------
+(begin-tx)
+
+(env-data {
+  "admin": ["admin-key"],
+  "u1": ["u1-key"],
+  "u2": ["u2-key"],
+  "u3": ["u3-key"],
+  "u4": ["u4-key"]
+})
+(env-keys [
+  "admin-key",
+  "u1-key",
+  "u2-key",
+  "u3-key",
+  "u4-key"
+])
+
+(define-keyset "admin" (read-keyset "admin"))
+
+(load "./coin/coin.pact")
+(commit-tx)
+
+;-----------------COIN ALLOCATION-------------
+(begin-tx)
+
+(use coin)
+
+(test-capability (COINBASE))
+(coinbase "admin" (read-keyset "admin") 10000.0)
+(coinbase "u1" (read-keyset "u1") 100.0)
+(coinbase "u2" (read-keyset "u2") 100.0)
+(coinbase "u3" (read-keyset "u3") 100.0)
+(coinbase "u4" (read-keyset "u4") 100.0)
+
+(load "./chainweb/hybrid-exchange.pact")
+(load "./kuro/hybrid-token.pact")
+
+(commit-tx)
+
+;-----------------BUY/SELL TEST-------------
+(begin-tx)
+
+(use coin)
+(use hybrid-exchange)
+
+(hybrid-exchange.buy-ht "u1" 1.0)
+(expect "ht balance 1.0" 1.0 (hybrid-exchange.get-balance "u1"))
+(expect "coin balance 99.0" 99.0 (coin.account-balance "u1"))
+
+(hybrid-exchange.sell-ht "u1" 1.0)
+(expect "ht balance 0.0" 0.0 (hybrid-exchange.get-balance "u1"))
+(expect "coin balance 100.0" 100.0 (coin.account-balance "u1"))
+
+(commit-tx)
+
+;-----------------BUY AND REQUEST WITH NO ACCOUNT---------------
+(begin-tx)
+
+(use coin)
+(use hybrid-exchange)
+(use hybrid-token)
+
+(hybrid-exchange.buy-ht "u1" 2.0)
+(expect "ht balance 2.0" 2.0 (hybrid-exchange.get-balance "u1"))
+(expect "admin balance TOTAL_SUPPLY - 2" 999998.0 (hybrid-exchange.get-balance "admin"))
+(expect "coin balance 98.0" 98.0 (coin.account-balance "u1"))
+;300 -> 302 for ht-admin -> module guard account that we create
+(expect "coin balance admin 300 + 2.0" 302.0 (coin.account-balance "ht-admin"))
+
+(hybrid-exchange.trans-to-priv "u1" 2.0)
+;produces id of "u1-1970-01-0100:00:00.000000"
+(hybrid-exchange.get-tx "u1-1970-01-0100:00:00.000000")
+(expect "status open" "open" (at "status" (hybrid-exchange.get-tx "u1-1970-01-0100:00:00.000000")))
+(expect "amount 2.0" 2.0 (at "amount" (hybrid-exchange.get-tx "u1-1970-01-0100:00:00.000000")))
+
+;ADMIN SEES THE REQUEST IN MIDDLEWARE
+(hybrid-exchange.debit-ht "u1" 2.0)
+(expect "ht balance 0.0" 0.0 (hybrid-exchange.get-balance "u1"))
+(expect "admin balance back to TOTAL_SUPPLY" 1000000.0 (hybrid-exchange.get-balance "admin"))
+
+;;NOW IN KURO!!
+;;has no account
+(hybrid-token.create-and-credit-ht "u1" (at 'guard (coin.account-info "u1")) 2.0)
+(expect "balance in kuro is 2" 2.0 (hybrid-token.get-balance "u1"))
+(expect "admin balance TOTAL_SUPPLY - 2" 999998.0 (hybrid-token.get-balance "admin"))
+
+;try confirm
+(hybrid-exchange.confirm-transfer-to-kuro "u1-1970-01-0100:00:00.000000")
+(expect "status closed" "closed" (at "status" (hybrid-exchange.get-tx "u1-1970-01-0100:00:00.000000")))
+
+;try reject -> this is called if debit-ht fails
+; which means that user made request, but lowered ht balance
+(hybrid-exchange.reject-transfer-to-kuro "u1-1970-01-0100:00:00.000000")
+(expect "status rejected" "rejected" (at "status" (hybrid-exchange.get-tx "u1-1970-01-0100:00:00.000000")))
+
+(commit-tx)
+
+
+;-----BUY AND REQUEST WITH SAME ACCOUNT ----
+(begin-tx)
+(use coin)
+(use hybrid-exchange)
+(use hybrid-token)
+;change time
+(env-chain-data {
+  "chain-id": "0",
+  "block-time": (time "2016-07-22T12:00:00Z"),
+  "block-height": 20,
+  "prev-block-hash": "dsdjhhhhakjssssasasasasskdhahhhskd"})
+
+
+(hybrid-exchange.buy-ht "u1" 3.0)
+(expect "ht balance 3.0" 3.0 (hybrid-exchange.get-balance "u1"))
+(expect "admin balance TOTAL_SUPPLY - 3" 999997.0 (hybrid-exchange.get-balance "admin"))
+(expect "coin balance 95.0" 95.0 (coin.account-balance "u1"))
+;300 -> 302 for ht-admin -> module guard account that we create
+(expect "coin balance admin 302 + 3.0" 305.0 (coin.account-balance "ht-admin"))
+
+(hybrid-exchange.trans-to-priv "u1" 3.0)
+;produces id of "u1-2016-07-2212:00:00.000000"
+(hybrid-exchange.get-tx "u1-2016-07-2212:00:00.000000")
+(expect "status open" "open" (at "status" (hybrid-exchange.get-tx "u1-2016-07-2212:00:00.000000")))
+(expect "amount 3.0" 3.0 (at "amount" (hybrid-exchange.get-tx "u1-2016-07-2212:00:00.000000")))
+
+;ADMIN SEES THE REQUEST IN MIDDLEWARE
+(hybrid-exchange.debit-ht "u1" 3.0)
+(expect "ht balance 0.0" 0.0 (hybrid-exchange.get-balance "u1"))
+(expect "admin balance back to TOTAL_SUPPLY" 1000000.0 (hybrid-exchange.get-balance "admin"))
+
+;;NOW IN KURO!!
+;;has account
+(hybrid-token.credit-ht "u1" 3.0)
+(expect "balance in kuro is 5" 5.0 (hybrid-token.get-balance "u1"))
+(expect "admin balance TOTAL_SUPPLY - 5" 999995.0 (hybrid-token.get-balance "admin"))
+
+;try confirm
+(hybrid-exchange.confirm-transfer-to-kuro "u1-2016-07-2212:00:00.000000")
+(expect "status closed" "closed" (at "status" (hybrid-exchange.get-tx "u1-2016-07-2212:00:00.000000")))
+
+(commit-tx)
+
+
+;-----------------BUY AND REQUEST NEW ACCOUNT (U2)---------------
+(begin-tx)
+(use coin)
+(use hybrid-exchange)
+(use hybrid-token)
+
+(hybrid-exchange.buy-ht "u2" 2.0)
+(expect "ht balance 2.0" 2.0 (hybrid-exchange.get-balance "u2"))
+(expect "admin balance TOTAL_SUPPLY - 2" 999998.0 (hybrid-exchange.get-balance "admin"))
+(expect "coin balance 98.0" 98.0 (coin.account-balance "u2"))
+; 300 + 2 u1 + 3 u1 + 2 u2 -> 307
+(expect "coin balance admin 305 + 2.0" 307.0 (coin.account-balance "ht-admin"))
+
+(expect-failure "cant request transfer for more than balance" (hybrid-exchange.trans-to-priv "u2" 100.0))
+(expect-failure "cant request transfer for negative amount" (hybrid-exchange.trans-to-priv "u2" -1.0))
+
+(hybrid-exchange.trans-to-priv "u2" 2.0)
+;produces id of "u2-2016-07-2212:00:00.000000"
+(hybrid-exchange.get-tx "u2-2016-07-2212:00:00.000000")
+(expect "status open" "open" (at "status" (hybrid-exchange.get-tx "u2-2016-07-2212:00:00.000000")))
+(expect "amount 2.0" 2.0 (at "amount" (hybrid-exchange.get-tx "u2-2016-07-2212:00:00.000000")))
+
+;ADMIN SEES THE REQUEST IN MIDDLEWARE
+(hybrid-exchange.debit-ht "u2" 2.0)
+(expect "ht balance 0.0" 0.0 (hybrid-exchange.get-balance "u2"))
+(expect "admin balance back to TOTAL_SUPPLY" 1000000.0 (hybrid-exchange.get-balance "admin"))
+
+;;NOW IN KURO!!
+;;has no account
+(hybrid-token.create-and-credit-ht "u2" (at 'guard (coin.account-info "u2")) 2.0)
+(expect "balance in kuro is 2" 2.0 (hybrid-token.get-balance "u2"))
+; TOTAL_SUPPLY -2 u1 -3 u1 -2 u2
+(expect "admin balance TOTAL_SUPPLY - 7" 999993.0 (hybrid-token.get-balance "admin"))
+
+;try confirm
+(hybrid-exchange.confirm-transfer-to-kuro "u2-2016-07-2212:00:00.000000")
+(expect "status closed" "closed" (at "status" (hybrid-exchange.get-tx "u2-2016-07-2212:00:00.000000")))
+
+
+(commit-tx)
+
+
+;------------------KURO MONEY TRANSFERS-------------------
+(begin-tx)
+(use hybrid-token)
+
+(expect-failure "cant transfer negative amount" (hybrid-token.transfer "u1" "u2" -2.0))
+(expect-failure "cant transfer to same person" (hybrid-token.transfer "u1" "u1" 2.0))
+(expect-failure "cant transfer more than balance" (hybrid-token.transfer "u1" "u2" 10.0))
+
+(hybrid-token.transfer "u1" "u2" 4.0)
+(expect "u1 balance 5 -> 1" 1.0 (hybrid-token.get-balance "u1"))
+(expect "u2 balance 2 -> 6" 6.0 (hybrid-token.get-balance "u2"))
+
+(hybrid-token.transfer "u2" "u1" 6.0)
+(expect "u1 balance 1 -> 7" 7.0 (hybrid-token.get-balance "u1"))
+(expect "u2 balance 6 -> 0" 0.0 (hybrid-token.get-balance "u2"))
+
+(commit-tx)
+
+
+;-------------------MONEY KURO -> CW-------------------------\
+
+(begin-tx)
+
+(use coin)
+(use hybrid-exchange)
+(use hybrid-token)
+
+
+
+(commit-tx)
