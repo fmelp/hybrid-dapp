@@ -1,7 +1,5 @@
-(module hybrid-token GOVERNANCE
-
-  (defcap GOVERNANCE ()
-    true)
+(define-keyset "hybrid-admin" (read-keyset "hybrid-admin"))
+(module hybrid-token 'hybrid-admin
 
   (defschema token-table-schema
     guard:guard
@@ -33,15 +31,13 @@
 ;need to figure out this admin stuff after
   (defcap ADMIN ()
     "makes sure only contract owner can make important function calls"
-    ; need to figure out how to enforce this guard here... there is no coin contract
-    ; may just need to be a good old read-keyset
-    true
+    (enforce-keyset (read-keyset "hybrid-admin"))
   )
 
   (defcap REGISTERED_USER (account:string)
     "makes sure user's guard matches"
     ;;look up user in token-table table -> guard gets passed from cw contract
-    true
+    (enforce-guard (get-guard account))
   )
 
   (defun transfer (sender:string receiver:string amount:decimal)
@@ -70,11 +66,11 @@
     @doc "user initates transfer of balance to chainweb"
     (with-capability (REGISTERED_USER account)
       (with-read token-table account
-        {"ht-balance":= balance}
+        {"balance":= balance}
         (enforce (>= balance amount) "amount must be less than your current balance")
         (enforce (> amount 0.0) "amount must be positive")
         ;;create a uniqueID -> account + timestamp
-        (let* ((ts (at "block-time" (chain-data)))
+        (let* ((ts (format-time "%Y-%m-%d%H:%M:%S.%v" (at "block-time" (chain-data))))
             (id (format "{}-{}" [account, ts])))
         (insert tx-table id
           {"account": account,
@@ -178,7 +174,9 @@
   )
 
   (defun init-admin-account ()
-    @doc "ADMIN ONLY: init admin account --> ONE TIME ONLY FUNCTION"
+    @doc "ADMIN ONLY: init admin account --> ONE TIME ONLY FUNCTION \
+    \ HAS TO BE CALLED RIGHT AFTER DEPLOYING THE CONTRACT!! \
+    \ no protection on contract otherwise"
     (with-capability (ADMIN)
       (insert token-table "admin" {
         "guard": (ht-guard),
@@ -191,6 +189,13 @@
     (with-read token-table account
       {"balance":= balance}
       balance
+    )
+  )
+
+  (defun get-guard (account:string)
+    (with-read token-table account
+      {"guard":= guard}
+      guard
     )
   )
 

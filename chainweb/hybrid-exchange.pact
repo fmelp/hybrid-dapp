@@ -1,16 +1,17 @@
-;;TODO
-; get rid of guard in schema -> can just get it from coin
-; actually implement caps and governance
-
+(namespace "user")
 (module hybrid-exchange GOVERNANCE
 
+  ;(defcap GOVERNANCE ()
+    ;(enforce-guard (at 'guard (details 'sender01))))
+    ;true)
+    ;(enforce-guard (at 'guard (coin.account-info 'hybrid-admin))))
   (defcap GOVERNANCE ()
+    ;(enforce-guard (at 'guard (details "sender01"))))
     true)
 
   (use coin)
 
   (defschema hybrid-schema
-    guard:guard
     ht-balance:decimal
     coins-in:decimal
     coins-out:decimal
@@ -35,21 +36,21 @@
   (defconst TOTAL_SUPPLY:decimal 1000000.0)
 
   ;module-guard account
-  (defconst ADMIN_ACCOUNT:string "ht-admin")
+  (defconst ADMIN_ACCOUNT:string "hybrid-mg")
   (defun ht-guard:guard () (create-module-guard ADMIN_ACCOUNT))
 
 
 ;need to figure out this admin stuff after
   (defcap ADMIN ()
     "makes sure only contract owner can make important function calls"
-    ; (enforce-guard (at 'guard (coin.account-info 'contract-admins)))
     true
+    ;(enforce-guard (at 'guard (coin.account-info 'hybrid-admin)))
   )
 
   (defcap REGISTERED_USER (account:string)
     "makes sure user's guard matches"
-    ;(enforce-guard (at 'guard (coin.account-info account)))
     true
+    ;(enforce-guard (at 'guard (coin.account-info account)))
   )
 
 
@@ -60,16 +61,16 @@
     ;and that his guard matches the account name
     (coin.transfer account ADMIN_ACCOUNT amount)
     (with-default-read hybrid-table account
-      {"guard": (at 'guard (coin.account-info account)),
+      ;{"guard": (at 'guard (coin.account-info account)),
       ;placeholder!!!!!!!!!!!!!
       ;{"guard": (ht-guard), ;;WARNING!!!! TO BE CHANGED!!!!!
       ;change above!!!!!!!
-      "ht-balance": 0.0,
+      {"ht-balance": 0.0,
       "coins-in": 0.0,
       "coins-out": 0.0,
       "ht-account": false}
-      {"guard":= guard-user,
-      "ht-balance":= ht-balance-user,
+      ;{"guard":= guard-user,
+      {"ht-balance":= ht-balance-user,
       "coins-in":= coins-in-user,
       "coins-out":= coins-out-user,
       "ht-account":= ht-account}
@@ -81,8 +82,8 @@
       (enforce (<= amount ht-balance-admin) "sorry there are not enough tokens available")
 
       (write hybrid-table account
-        {"guard": guard-user,
-        "ht-balance": (+ ht-balance-user amount),
+        ;{"guard": guard-user,
+        {"ht-balance": (+ ht-balance-user amount),
         "coins-in": (+ coins-in-user amount),
         "coins-out": coins-out-user,
         "ht-account": ht-account})
@@ -213,7 +214,7 @@
     @doc "ADMIN ONLY: init admin account --> ONE TIME ONLY FUNCTION"
     (with-capability (ADMIN)
       (insert hybrid-table "admin" {
-        "guard": (ht-guard),
+        ;"guard": (ht-guard),
         "ht-balance": TOTAL_SUPPLY,
         "coins-in": 0.0,
         "coins-out": 0.0,
@@ -234,4 +235,4 @@
 (create-table hybrid-table)
 (create-table tx-table)
 (init-admin-account)
-(transfer-and-create "admin" ADMIN_ACCOUNT (ht-guard) 300.0)
+;(transfer-create "sender01" ADMIN_ACCOUNT (ht-guard) 800.0)
