@@ -73,52 +73,7 @@ export class PactStore extends React.Component {
       window.location.reload();
     }
   }
-  //
-  //
-  // startRound = async (round) => {
-  //   if (this.state.playerId !== "" && this.state.playerId) {
-  //     try {
-  //       // const cmd = await Pact.wallet.sign(
-  //       //   //code
-  //       //   `(pacty-parrots.start-round ${JSON.stringify(this.state.playerId)})`,
-  //       //   //envData
-  //       //   {[this.state.playerId]: []},
-  //       //   this.state.playerId,
-  //       //   "0",
-  //       //   100000
-  //         const signCmd = {
-  //             pactCode: `(user.pacty-parrots.start-round ${JSON.stringify(this.state.playerId)})`,
-  //             // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
-  //             caps: [
-  //               Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
-  //               // Pact.lang.mkCap("transfer capability", "description of transfer cap", "coin.TRANSFER", [this.state.playerId, "sender00", 5.0]),
-  //               Pact.lang.mkCap("transfer capability", "description of transfer cap", "coin.TRANSFER", [this.state.playerId, "parrot-bank", 5.0]),
-  //               Pact.lang.mkCap("Bet capability" , "Bet for the round", "user.pacty-parrots.BET", [this.state.playerId]),
-  //             ],
-  //             sender: this.state.playerId,
-  //             gasLimit: 10000,
-  //             chainId: "0",
-  //             ttl: 28800,
-  //             envData: {}
-  //           }
-  //         const cmd = await Pact.wallet.sign(signCmd)
-  //       console.log(cmd)
-  //       const reqKey = await Pact.wallet.sendSigned(cmd, createAPIHost(this.state.workingHosts[0], "0"))
-  //       console.log(reqKey.requestKeys[0]);
-  //       await this.setState({ currentReqKey: reqKey.requestKeys[0] })
-  //       this.setReqKey(reqKey.requestKeys[0])
-  //     } catch(err){
-  //       console.log(err)
-  //       alert("you cancelled the TX or you did not have the wallet app open")
-  //       window.location.reload();
-  //     }
-  //
-  //   }
-  //   else {
-  //     alert("Please Log-in!")
-  //     window.location.reload()
-  //   }
-  // }
+
 
   sellHT = async (amount) => {
     amount = this.convertDecimal(amount)
@@ -128,17 +83,16 @@ export class PactStore extends React.Component {
           // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
           caps: [
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
-            // Pact.lang.mkCap("transfer capability", "description of transfer cap", "coin.TRANSFER", [this.state.playerId, "sender00", 5.0]),
             Pact.lang.mkCap("transfer capability", "description of transfer cap", "coin.TRANSFER", ["hybrid-mg", this.state.accountName, parseFloat(amount)]),
+            Pact.lang.mkCap("Registered account capability", "is registered in hybrid-exchange", "user.hybrid-exchange.REGISTERED_USER", [this.state.accountName]),
           ],
           sender: this.state.accountName,
-          gasLimit: 100000,
+          gasLimit: 5000,
           chainId: "0",
           ttl: 28800,
           envData: {}
         }
       const cmd = await Pact.wallet.sign(signCmd)
-      console.log(cmd)
       console.log(cmd)
       const reqKey = await Pact.wallet.sendSigned(cmd, createAPIHost(hosts[0], "0"))
       console.log(reqKey.requestKeys[0])
@@ -150,10 +104,6 @@ export class PactStore extends React.Component {
   }
 
   getCWBalance = async () => {
-      // const cmd = await Pact.fetch.local({
-      //   pactCode: `(user.hybrid-exchange.get-balance ${JSON.stringify(this.state.accountName)})`,
-      //   keyPairs: dumKeyPair
-      // }, createAPIHost(hosts[0], "0"))
     const cmd = await Pact.fetch.local({
       pactCode: `(user.hybrid-exchange.get-balance ${JSON.stringify(this.state.accountName)})`,
       keyPairs: dumKeyPair,
@@ -168,19 +118,6 @@ export class PactStore extends React.Component {
 
   }
 
-  // getCoinBalance = async () => {
-  //   const cmd = await Pact.fetch.local({
-  //     pactCode: `(coin.get-balance ${JSON.stringify(this.state.accountName)})`,
-  //     keyPairs: dumKeyPair,
-  //     caps: [Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", [])],
-  //     meta: Pact.lang.mkMeta("not-real", "0", 0.0000001, 5000, (Math.round((new Date).getTime()/1000)-15), 28800)
-  // }, createAPIHost(hosts[0], "0"))
-  //   const data = await cmd;
-  //   if (data.result.status === "success") {
-  //     console.log(data.result.data.toString())
-  //     await this.setState({ coinBalance: data.result.data.toString().substring(0,15) })
-  //   }
-  // }
 
   getKuroBalance = async () => {
     const cmd = await Pact.fetch.local({
@@ -201,9 +138,9 @@ export class PactStore extends React.Component {
     try {
       const signCmd = {
           pactCode: `(user.hybrid-exchange.trans-to-priv ${JSON.stringify(this.state.accountName)} ${amount})`,
-          // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
           caps: [
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
+            Pact.lang.mkCap("Registered account capability", "is registered in hybrid-exchange", "user.hybrid-exchange.REGISTERED_USER", [this.state.accountName]),
           ],
           sender: this.state.accountName,
           gasLimit: 100000,
@@ -226,7 +163,6 @@ export class PactStore extends React.Component {
     try {
       const signCmd = {
           pactCode: `(hybrid-token.transfer-to-cw ${JSON.stringify(this.state.accountName)} ${amount})`,
-          // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
           caps: [
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
           ],
@@ -251,7 +187,6 @@ export class PactStore extends React.Component {
     try {
       const signCmd = {
           pactCode: `(hybrid-token.transfer ${JSON.stringify(this.state.accountName)} ${JSON.stringify(account)} ${amount})`,
-          // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
           caps: [
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
           ],
