@@ -31,6 +31,10 @@ const Home = () => {
   const [transferAmount, setTransferAmount] = useState("");
   const [transferTo, setTransferTo] = useState("");
 
+  // const isDecimal = (str) => {
+  //
+  // }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -42,43 +46,58 @@ const Home = () => {
       <button onClick={() => pactFecth()}>
         login
       </button>
-        <p>
+        <p style={{ color: "red" }}>
           Kadena Coin Balance: {pactContext.coinBalance}
         </p>
-        <p>
+        <p style={{ color: "green" }}>
           Hybrid Token Balance (Chainweb): {pactContext.cwBalance}
         </p>
-        <text>amount</text>
+        <text>enter amount to buy (Kadena -> HT)</text>
         <input value={amountBuy} onChange={(e) => setAmountBuy(e.target.value)}/>
-        <button>
+        <button
+          disabled={amountBuy ? false : true}
+          onClick={() => {
+            pactContext.buyHT(amountBuy)}}>
           buy hybrid token
         </button>
         <br></br>
-        <text>amount</text>
+        <text>enter amount to sell (HT -> Kadena)</text>
         <input value={amountSell} onChange={(e) => setAmountSell(e.target.value)}/>
-        <button>
+        <button
+          disabled={amountSell ? false : true}
+          onClick={() => {
+          pactContext.sellHT(amountSell)}}>
           sell hybrid token
         </button>
-        <p>
+        <p style={{ color: "green" }}>
           Hybrid Token Balance (Kuro): {pactContext.kuroBalance}
         </p>
-        <text>amount</text>
+        <text>enter amount to transfer (CW -> Kuro)</text>
         <input value={amountToKuro} onChange={(e) => setAmountToKuro(e.target.value)}/>
-        <button>
+        <button
+          disabled={amountToKuro ? false : true}
+          onClick={() => {
+          pactContext.transferCWKuro(amountToKuro)}}>
           transfer chainweb -> kuro
         </button>
         <br></br>
-        <text>amount</text>
+        <text>enter amount to transfer (Kuro -> CW)</text>
         <input value={amountToCW} onChange={(e) => setAmountToCW(e.target.value)}/>
-        <button>
+        <button
+          disabled={amountToCW ? false : true}
+          onClick={() => {
+          pactContext.transferKuroCW(amountToCW)}}>
           transfer kuro -> chainweb
         </button>
         <br></br>
-        <text>amount</text>
+        <text>enter amount to transfer within Kuro</text>
         <input value={transferAmount} onChange={(e) => setTransferAmount(e.target.value)}/>
         <text>account</text>
         <input value={transferTo} onChange={(e) => setTransferTo(e.target.value)}/>
-        <button>
+        <button
+          disabled={(transferAmount && transferTo) ? false : true}
+          onClick={() => {
+          pactContext.transferInKuro(transferTo, transferAmount)}}>
           transfer within kuro
         </button>
       </header>

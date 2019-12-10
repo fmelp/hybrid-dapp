@@ -1,13 +1,8 @@
 (namespace "user")
 (module hybrid-exchange GOVERNANCE
 
-  ;(defcap GOVERNANCE ()
-    ;(enforce-guard (at 'guard (details 'sender01))))
-    ;true)
-    ;(enforce-guard (at 'guard (coin.account-info 'hybrid-admin))))
   (defcap GOVERNANCE ()
-    ;(enforce-guard (at 'guard (details "sender01"))))
-    true)
+    (enforce-guard (at 'guard (details 'contract-admins))))
 
   (use coin)
 
@@ -43,14 +38,13 @@
 ;need to figure out this admin stuff after
   (defcap ADMIN ()
     "makes sure only contract owner can make important function calls"
-    true
-    ;(enforce-guard (at 'guard (coin.account-info 'hybrid-admin)))
+    (enforce-guard (at 'guard (coin.details 'hybrid-admin)))
   )
 
   (defcap REGISTERED_USER (account:string)
     "makes sure user's guard matches"
-    true
-    ;(enforce-guard (at 'guard (coin.account-info account)))
+    ;true
+    (enforce-guard (at 'guard (coin.details account)))
   )
 
 
@@ -234,5 +228,5 @@
 
 (create-table hybrid-table)
 (create-table tx-table)
-(init-admin-account)
-;(transfer-create "sender01" ADMIN_ACCOUNT (ht-guard) 800.0)
+;(init-admin-account)
+(transfer-create "hybrid-admin" ADMIN_ACCOUNT (ht-guard) 1.0)
