@@ -1,0 +1,20 @@
+{
+  "adminAccount": {
+    "id": "rymedi",
+    "keypair": {
+      "publicKey": "70251bc18ecbaa40e227c38fadb961d00b0a9bc7c3235d99594eefef3ddb4311",
+      "secretKey": "81e0d5cfa3dcadc2db4182cf33e1b4c4c2310ac0e6dbb9aa8fcd451131f11298"
+    }
+  },
+  "meta": {
+    "chainId": "0",
+    "ttl": 28800,
+    "gasLimit": 5000,
+    "gasPrice": 0.000000001
+  },
+  "network": {
+    "node": "us1",
+    "networkId": "testnet04",
+    "kuroUrls": ["http://54.166.153.21:9000", "http://54.146.43.204:9001", "http://34.204.71.247:9002", "http://54.164.36.85:9003"]
+  }
+}
