@@ -50,10 +50,8 @@ export class PactStore extends React.Component {
     try {
       const signCmd = {
           pactCode: `(user.hybrid-exchange.buy-ht ${JSON.stringify(this.state.accountName)} ${amount})`,
-          // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
           caps: [
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
-            // Pact.lang.mkCap("transfer capability", "description of transfer cap", "coin.TRANSFER", [this.state.playerId, "sender00", 5.0]),
             Pact.lang.mkCap("transfer capability", "description of transfer cap", "coin.TRANSFER", [this.state.accountName, "hybrid-mg", parseFloat(amount)]),
           ],
           sender: this.state.accountName,
@@ -74,13 +72,11 @@ export class PactStore extends React.Component {
     }
   }
 
-
   sellHT = async (amount) => {
     amount = this.convertDecimal(amount)
     try {
       const signCmd = {
           pactCode: `(user.hybrid-exchange.sell-ht ${JSON.stringify(this.state.accountName)} ${amount})`,
-          // pactCode: `(coin.transfer "sender01" "sender00" 1.0)`,
           caps: [
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
             Pact.lang.mkCap("transfer capability", "description of transfer cap", "coin.TRANSFER", ["hybrid-mg", this.state.accountName, parseFloat(amount)]),
@@ -118,16 +114,14 @@ export class PactStore extends React.Component {
 
   }
 
-
   getKuroBalance = async () => {
     const cmd = await Pact.fetch.local({
       pactCode: `(hybrid-token.get-balance ${JSON.stringify(this.state.accountName)})`,
       keyPairs: dumKeyPair
     }, kuroUrls[0])
-    const data = await cmd.data;
-    console.log(data);
-    if (data !== undefined) {
-      await this.setState({ kuroBalance: data.toString().substring(0,15)  })
+    const data = await cmd;
+    if (data.result.status === "success") {
+      await this.setState({ kuroBalance: data.result.data.toString().substring(0,15)  })
       console.log(this.state.kuroBalance)
     }
 
@@ -208,25 +202,25 @@ export class PactStore extends React.Component {
 
 
   render() {
-  return (
-    <Context.Provider
-      value={{
-        ...this.state,
-        setAccountName: this.setAccountName,
-        getCoinBalance: this.getCoinBalance,
-        getCWBalance: this.getCWBalance,
-        getKuroBalance: this.getKuroBalance,
-        buyHT: this.buyHT,
-        sellHT: this.sellHT,
-        transferCWKuro: this.transferCWKuro,
-        transferKuroCW: this.transferKuroCW,
-        transferInKuro: this.transferInKuro
-      }}
-    >
-      {this.props.children}
-    </Context.Provider>
-  );
-}
+    return (
+      <Context.Provider
+        value={{
+          ...this.state,
+          setAccountName: this.setAccountName,
+          getCoinBalance: this.getCoinBalance,
+          getCWBalance: this.getCWBalance,
+          getKuroBalance: this.getKuroBalance,
+          buyHT: this.buyHT,
+          sellHT: this.sellHT,
+          transferCWKuro: this.transferCWKuro,
+          transferKuroCW: this.transferKuroCW,
+          transferInKuro: this.transferInKuro
+        }}
+      >
+        {this.props.children}
+      </Context.Provider>
+    );
+  }
 
 }
 
