@@ -8,6 +8,14 @@ var utils = require("./utils.js")
 //cw.mark-complete
   //wait for confirm of complete (store reqKey + cw-kuro-trans + id + timestamp)
 
+
+//CHANGE THE CONTRACT TO DEBIT THE AMOUNT WHEN YOU REQUEST IT
+//three states: open, complete, failed
+//if credit doenst work in kuro
+  //return money and mark failed
+//if credit works in kuro
+  //mark complete
+
 async function cwListen() {
   let debits = [];
   let credits = [];
@@ -20,19 +28,27 @@ async function cwListen() {
         meta: Pact.lang.mkMeta("not-real", config.meta.chainId, config.meta.gasPrice, config.meta.gasLimit, utils.creationTime(), config.meta.ttl)
     }, utils.apiHost)
     const res = await cmd;
-    console.log(res.result.data);
+    // console.log(res.result.data);
     const open = res.result.data.filter(x => x.status === 'open');
     if (open.length !== 0) {
       //format pact commands
-      res.result.data.map((x) => {
+      res.result.data.map((x, i) => {
         debits.push(`(user.hybrid-exchange.debit-ht ${JSON.stringify(x.account)} ${utils.convertDecimal(x.amount)})`)
-        credits.push(`(user.hybrid-exchange)`)
-        confs.push(`(user.hybrid-exchange)`)
+        credits.push(`(hybrid-token.credit-ht ${JSON.stringify(x.account)} ${utils.convertDecimal(x.amount)})`)
+        confs.push(`(user.hybrid-exchange.confirm-transfer-to-kuro)`)
       })
-      console.log(debits)
+      console.log(debits, credits, confs)
+      //credit
+
+      //debit
+
+      //conf-trans
+
+      //recall cwListen()
     } else {
       //sleep for 30 seconds before repeating function
       await utils.sleep(30000);
+      cwListen();
     }
 
   //returns list
