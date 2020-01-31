@@ -36,10 +36,58 @@ var convertDecimal = (decimal) => {
   return decimal
 }
 
+async function localCW(pactCode) {
+  const cmd = Pact.fetch.local({
+  pactCode: pactCode,
+    keyPairs: config.adminAccount.keypair,
+    meta: Pact.lang.mkMeta("not-real", config.meta.chainId, config.meta.gasPrice, config.meta.gasLimit, creationTime(), config.meta.ttl)
+    }, apiHost)
+  const res = await cmd;
+  return res;
+}
+
+async function sendCW(pactCode) {
+  const reqKeys = await Pact.fetch.send({
+    pactCode: pactCode,
+    keyPairs: config.adminAccount.keypair,
+    caps: [
+      Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
+      Pact.lang.mkCap("admin cap", "description admin cap", "hybrid-exchange.ADMIN", []),
+    ],
+    networkId: "testnet04",
+    envData: {},
+    meta: Pact.lang.mkMeta(config.adminAccount.id, "0", 0.00000001, 5000, creationTime(), 135)
+  }, apiHost)
+  return reqKeys;
+}
+
+async function sendKuro(pactCode, keysets) {
+  const reqKeys = await Pact.fetch.send({
+    pactCode: pactCode,
+    keyPairs: config.adminAccount.keypair,
+    caps: [
+      Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
+      Pact.lang.mkCap("admin cap", "description admin cap", "hybrid-token.ADMIN", []),
+    ],
+    networkId: "kuro",
+    envData: {
+      [config.adminAccount.id] : {
+        "keys": [config.adminAccount.keypair.publicKey],
+        "pred": "keys-all"
+      }, ...keysets
+    },
+    meta: Pact.lang.mkMeta(config.adminAccount.id, "0", 0.00000001, 5000, creationTime(), 105)
+  }, config.network.kuroUrls[0])
+  return reqKeys;
+}
+
 module.exports = {
   creationTime: creationTime,
   apiHost: apiHost,
   pollResult: pollResult,
   sleep: sleep,
-  convertDecimal: convertDecimal
+  convertDecimal: convertDecimal,
+  sendKuro: sendKuro,
+  sendCW: sendCW,
+  localCW: localCW
 }

@@ -112,7 +112,7 @@
   (defun create-and-credit-ht (account:string guard:guard amount:decimal)
     @doc "ADMIN ONLY: admin credits and creates account from input from chainweb"
     (with-capability (ADMIN)
-      (create-account account guard)
+      (if (contains account (keys token-table)) "" (create-account account guard))
       (with-read token-table account
         {"balance":= balance-user}
         (with-read token-table "admin"
