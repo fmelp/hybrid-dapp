@@ -60,7 +60,7 @@ async function cwListen() {
         const rejsRK = await utils.sendCW(rejs.join(" "));
         await utils.sleep(120000)
         const rejsRes = await Pact.fetch.poll({ requestKeys: rejsRK.requestKeys }, utils.apiHost)
-        if (Object.keys(rejsRK).length !== 0 && rejsRes[rejsRK.requestKeys[0]].result.status === "success") {
+        if (Object.keys(rejsRes).length !== 0 && rejsRes[rejsRK.requestKeys[0]].result.status === "success") {
           console.log("transfers rejected and money returned to users");
           console.log(rejs)
           //repeat function
@@ -68,7 +68,7 @@ async function cwListen() {
         } else {
           //confirmation on cw failed
           console.log("rejections on chainweb failed. Stopping middleware for manual inspection");
-          console.log(confs);
+          console.log(rejs);
         }
       }
     } else {

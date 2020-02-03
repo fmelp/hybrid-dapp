@@ -38,10 +38,26 @@ var convertDecimal = (decimal) => {
 
 async function localCW(pactCode) {
   const cmd = Pact.fetch.local({
-  pactCode: pactCode,
+    pactCode: pactCode,
     keyPairs: config.adminAccount.keypair,
     meta: Pact.lang.mkMeta("not-real", config.meta.chainId, config.meta.gasPrice, config.meta.gasLimit, creationTime(), config.meta.ttl)
     }, apiHost)
+  const res = await cmd;
+  return res;
+}
+
+async function localKuro(pactCode) {
+  const cmd = Pact.fetch.local({
+    pactCode: pactCode,
+    keyPairs: config.adminAccount.keypair,
+    meta: Pact.lang.mkMeta("not-real", config.meta.chainId, config.meta.gasPrice, config.meta.gasLimit, creationTime(), config.meta.ttl),
+    envData: {
+      [config.adminAccount.id] : {
+        "keys": [config.adminAccount.keypair.publicKey],
+        "pred": "keys-all"
+      }
+    }
+    }, config.network.kuroUrls[0])
   const res = await cmd;
   return res;
 }
@@ -89,5 +105,6 @@ module.exports = {
   convertDecimal: convertDecimal,
   sendKuro: sendKuro,
   sendCW: sendCW,
-  localCW: localCW
+  localCW: localCW,
+  localKuro: localKuro
 }
