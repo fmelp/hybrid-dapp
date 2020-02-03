@@ -63,12 +63,14 @@
   )
 
   (defun transfer-to-cw (account:string amount:decimal)
-    @doc "user initates transfer of balance to chainweb"
+    @doc "user initates transfer of balance to chainweb \
+    \ charges user the amount"
     (with-capability (REGISTERED_USER account)
       (with-read token-table account
         {"balance":= balance}
         (enforce (>= balance amount) "amount must be less than your current balance")
         (enforce (> amount 0.0) "amount must be positive")
+        (debit-ht-user account amount)
         ;;create a uniqueID -> account + timestamp
         (let* ((ts (format-time "%Y-%m-%d%H:%M:%S.%v" (at "block-time" (chain-data))))
             (id (format "{}-{}" [account, ts])))
@@ -143,6 +145,22 @@
     )
   )
 
+  (defun debit-ht-user (account:string amount:decimal)
+    @doc "HELPER function for initiating transfer to chainweb"
+    (require-capability (REGISTERED_USER account))
+      (with-read token-table account
+        {"balance":= balance-user}
+        (with-read token-table "admin"
+          {"balance":= balance-admin}
+          (enforce (>= balance-user amount) "user does not have enough balance")
+          (update token-table account
+            {"balance": (- balance-user amount)})
+          (update token-table "admin"
+            {"balance": (+ balance-admin amount)})
+        )
+      )
+  )
+
   ;intended front-end use: (map (hybrid-token.get-tx) (hybrid-token.get-tx-keys))
   (defun get-tx-keys ()
     @doc "ADMIN ONLY: see who needs to be credited on either chain \
@@ -166,10 +184,16 @@
   )
 
   (defun reject-transfer-to-cw (id:string)
-    @doc "ADMIN ONLY: change status when debit-ht gets rejected"
+    @doc "ADMIN ONLY: change status when debit-ht gets rejected \
+    \ refunds transfer amount to the user"
     (with-capability (ADMIN)
-      (update tx-table id
-        {"status": TX_REJECTED})
+      (with-read tx-table id
+        {"amount" := amount,
+        "account" := account}
+        (credit-ht account amount)
+        (update tx-table id
+          {"status": TX_REJECTED})
+      )
     )
   )
 
@@ -201,6 +225,6 @@
 
 )
 
-(create-table token-table)
-(create-table tx-table)
-(init-admin-account)
+; (create-table token-table)
+; (create-table tx-table)
+; (init-admin-account)

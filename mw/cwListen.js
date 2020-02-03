@@ -42,7 +42,6 @@ async function cwListen() {
       if (creditsRes.result.status === "success") {
         //confirm tx in cw
         const confRK = await utils.sendCW(confs.join(" "));
-        console.log('sleeping 120 secs...')
         await utils.sleep(120000)
         const confRes = await Pact.fetch.poll({ requestKeys: confRK.requestKeys }, utils.apiHost)
         if (Object.keys(confRK).length !== 0 && confRes[confRK.requestKeys[0]].result.status === "success") {
@@ -59,7 +58,6 @@ async function cwListen() {
         console.log("one or more credits in kuro have failed. Rejecting all transfers and returning money to user")
         //reject and refund request in CW
         const rejsRK = await utils.sendCW(rejs.join(" "));
-        console.log('sleeping 120 secs...')
         await utils.sleep(120000)
         const rejsRes = await Pact.fetch.poll({ requestKeys: rejsRK.requestKeys }, utils.apiHost)
         if (Object.keys(rejsRK).length !== 0 && rejsRes[rejsRK.requestKeys[0]].result.status === "success") {
