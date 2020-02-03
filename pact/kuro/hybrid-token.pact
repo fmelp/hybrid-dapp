@@ -10,10 +10,11 @@
     account:string
     amount:decimal
     status:string
+    time:integer
   )
 
   (deftable token-table:{token-table-schema})
-  (deftable tx-table:{tx-schema})
+  (deftable tx-table-2:{tx-schema})
 
   (defconst TX_OPEN:string "open")
   (defconst TX_CLOSED:string "closed")
@@ -72,12 +73,14 @@
         (enforce (> amount 0.0) "amount must be positive")
         (debit-ht-user account amount)
         ;;create a uniqueID -> account + timestamp
-        (let* ((ts (format-time "%Y-%m-%d%H:%M:%S.%v" (at "block-time" (chain-data))))
+        (let* ((ts (length (keys tx-table-2)))
             (id (format "{}-{}" [account, ts])))
-        (insert tx-table id
+        (insert tx-table-2 id
           {"account": account,
           "amount": amount,
-          "status": TX_OPEN})
+          "status": TX_OPEN,
+          "time": ts
+          })
         ;return some info to user
         (format "Confirmation that your request ({}) is being processed..." [id])
         )
@@ -167,18 +170,18 @@
     \ can potentially encypt users info??"
     ;do i need ADMIN cap here, anyone can access this db in theory
     (with-capability (ADMIN)
-      (keys tx-table)
+      (keys tx-table-2)
     )
   )
   (defun get-tx (id:string)
     @doc "for user or admin to check status of a tx"
-    (read tx-table id)
+    (read tx-table-2 id)
   )
 
   (defun confirm-transfer-to-cw (id:string)
     @doc "ADMIN ONLY: change status when interchain transfer complete"
     (with-capability (ADMIN)
-      (update tx-table id
+      (update tx-table-2 id
         {"status": TX_CLOSED})
     )
   )
@@ -187,11 +190,11 @@
     @doc "ADMIN ONLY: change status when debit-ht gets rejected \
     \ refunds transfer amount to the user"
     (with-capability (ADMIN)
-      (with-read tx-table id
+      (with-read tx-table-2 id
         {"amount" := amount,
         "account" := account}
         (credit-ht account amount)
-        (update tx-table id
+        (update tx-table-2 id
           {"status": TX_REJECTED})
       )
     )
@@ -225,6 +228,6 @@
 
 )
 
-; (create-table token-table)
-; (create-table tx-table)
+;(create-table token-table)
+;(create-table tx-table-2)
 ; (init-admin-account)

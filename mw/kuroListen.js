@@ -14,7 +14,6 @@ async function kuroListen() {
     if (txsOpen.length !== 0) {
       //prepare pact code
       txsOpen.map((x, i) => {
-        console.log(x)
         credits.push(`(user.hybrid-exchange.credit-ht ${JSON.stringify(x.account)} ${utils.convertDecimal(x.amount)})`)
         confs.push(`(hybrid-token.confirm-transfer-to-cw ${JSON.stringify(x.account + "-" + x.time.int)})`)
         rejs.push(`(hybrid-token.reject-transfer-to-cw ${x.account + "-" + x.time.int})`)

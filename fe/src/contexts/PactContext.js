@@ -160,6 +160,7 @@ export class PactStore extends React.Component {
           pactCode: `(hybrid-token.transfer-to-cw ${JSON.stringify(this.state.accountName)} ${amount})`,
           caps: [
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
+            Pact.lang.mkCap("Registered account capability", "is registered in hybrid-exchange", "hybrid-token.REGISTERED_USER", [this.state.accountName])
           ],
           sender: this.state.accountName,
           gasLimit: 5000,
