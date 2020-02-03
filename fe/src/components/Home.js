@@ -14,7 +14,6 @@ const Home = () => {
       await pactContext.getCWBalance();
       await pactContext.getKuroBalance();
     }
-
     pactFetch();
   }, [])
 
