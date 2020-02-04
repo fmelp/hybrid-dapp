@@ -13,7 +13,7 @@ const savedAcct = localStorage.getItem('acct');
 export class PactStore extends React.Component {
 
   state = {
-    accountName: "",
+    accountName: (savedAcct ? savedAcct : ""),
     coinBalance: "n/a",
     cwBalance: "n/a",
     kuroBalance: "n/a"
@@ -30,6 +30,7 @@ export class PactStore extends React.Component {
 
   setAccountName = async (str) => {
     this.setState({ accountName: str })
+    await localStorage.setItem('acct', str);
   }
 
   getCoinBalance = async () => {
@@ -41,7 +42,6 @@ export class PactStore extends React.Component {
   }, createAPIHost(hosts[0], "0"))
     const data = await cmd;
     if (data.result.status === "success") {
-      console.log(data.result.data.toString())
       await this.setState({ coinBalance: data.result.data.toString().substring(0,15) })
     }
   }
@@ -62,10 +62,7 @@ export class PactStore extends React.Component {
           envData: {}
         }
       const cmd = await Pact.wallet.sign(signCmd)
-      console.log(cmd)
-      console.log(cmd)
       const reqKey = await Pact.wallet.sendSigned(cmd, createAPIHost(hosts[0], "0"))
-      console.log(reqKey.requestKeys[0])
     } catch(err){
       console.log(err);
       alert("you cancelled the TX or you did not have the wallet app open")
@@ -91,9 +88,7 @@ export class PactStore extends React.Component {
           envData: {}
         }
       const cmd = await Pact.wallet.sign(signCmd)
-      console.log(cmd)
       const reqKey = await Pact.wallet.sendSigned(cmd, createAPIHost(hosts[0], "0"))
-      console.log(reqKey.requestKeys[0])
     } catch(err){
       console.log(err);
       alert("you cancelled the TX or you did not have the wallet app open")
@@ -110,7 +105,6 @@ export class PactStore extends React.Component {
     }, createAPIHost(hosts[0], "0"))
     const data = await cmd;
     if (data.result.status === "success") {
-      console.log(data.result.data.toString())
       await this.setState({ cwBalance: data.result.data.toString().substring(0,15) })
     }
 
@@ -124,7 +118,6 @@ export class PactStore extends React.Component {
     const data = await cmd;
     if (data.result.status === "success") {
       await this.setState({ kuroBalance: data.result.data.toString().substring(0,15)  })
-      console.log(this.state.kuroBalance)
     }
 
   }
@@ -145,9 +138,7 @@ export class PactStore extends React.Component {
           envData: {}
         }
       const cmd = await Pact.wallet.sign(signCmd)
-      console.log(cmd)
       const reqKey = await Pact.wallet.sendSigned(cmd, createAPIHost(hosts[0], "0"))
-      console.log(reqKey.requestKeys[0])
     } catch(err){
       console.log(err);
       alert("you cancelled the TX or you did not have the wallet app open")
@@ -172,7 +163,6 @@ export class PactStore extends React.Component {
         }
       const cmd = await Pact.wallet.sign(signCmd)
       const reqKey = await Pact.wallet.sendSigned(cmd, kuroUrls[0])
-      console.log(reqKey.requestKeys[0])
     } catch(err){
       console.log(err);
       alert("you cancelled the TX or you did not have the wallet app open")
@@ -187,6 +177,7 @@ export class PactStore extends React.Component {
           pactCode: `(hybrid-token.transfer ${JSON.stringify(this.state.accountName)} ${JSON.stringify(account)} ${amount})`,
           caps: [
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
+            Pact.lang.mkCap("Registered account capability", "is registered in hybrid-exchange", "hybrid-token.REGISTERED_USER", [this.state.accountName])
           ],
           sender: this.state.accountName,
           gasLimit: 5000,
@@ -196,7 +187,6 @@ export class PactStore extends React.Component {
         }
       const cmd = await Pact.wallet.sign(signCmd)
       const reqKey = await Pact.wallet.sendSigned(cmd, kuroUrls[0])
-      console.log(reqKey.requestKeys[0])
     } catch(err){
       console.log(err);
       alert("you cancelled the TX or you did not have the wallet app open")

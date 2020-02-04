@@ -35,14 +35,14 @@ const Home = () => {
 
 
   return (
-    <Grid columns={2} padded scrollable verticalAlign="top">
+    <Grid columns={2} padded verticalAlign="top">
       <Grid.Column textAlign="center" style={{overflow: "auto"}}>
         <img src={require("../kadena.png")} style={{height:70, marginTop: 50}}/>
         <Header as="h6" style={{color:'black', fontWeight: 'bold', fontSize: 40, marginTop: 20}}>
           Kadena Hybrid Demo
         </Header>
         <Form>
-          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "20px", marginBottom: 30, textAlign: "left"}} >
+          <Form.Field  style={{marginLeft: 100, marginRight: 100, marginTop: "20px", marginBottom: 30, textAlign: "left"}} >
             <label style={{color: "#f4aa3c" }}>Enter Your Account Name
               <Popup
                 trigger={
@@ -55,7 +55,6 @@ const Home = () => {
               </Popup>
             </label>
               <Form.Input
-                style={{width:"440px"}}
                 icon='user'
                 iconPosition='left'
                 placeholder='Account Name'
@@ -64,7 +63,6 @@ const Home = () => {
                 action={
                    <Button
                    color='yellow'
-                   icon="redo"
                    onClick={() => pactFecth()}
                    >
                     <Icon name="redo"/>
@@ -74,7 +72,7 @@ const Home = () => {
               />
           </Form.Field>
         </Form>
-        <Message color="violet" style={{marginLeft: 100, marginRight: 100}}>
+        <Message color="pink" style={{marginLeft: 100, marginRight: 100}}>
           <Message.Header>
             KDA Balance:
           </Message.Header>
@@ -82,7 +80,7 @@ const Home = () => {
             {pactContext.coinBalance}
           </div>
         </Message>
-        <Message color="blue" style={{marginLeft: 100, marginRight: 100}}>
+        <Message color="orange" style={{marginLeft: 100, marginRight: 100}}>
           <Message.Header>
             Hybrid Token (Chainweb) Balance:
           </Message.Header>
@@ -90,7 +88,7 @@ const Home = () => {
             {pactContext.cwBalance}
           </div>
         </Message>
-        <Message color="teal" style={{marginLeft: 100, marginRight: 100}}>
+        <Message color="yellow" style={{marginLeft: 100, marginRight: 100}}>
           <Message.Header>
             Hybrid Token (Kuro) Balance:
           </Message.Header>
@@ -136,6 +134,15 @@ const Home = () => {
                 placeholder='Amount to Buy'
                 value={amountBuy}
                 onChange={(e) => setAmountBuy(e.target.value)}
+                action={
+                   <Button
+                   color={(!isNaN(amountBuy) && amountBuy !== "") ? "orange" : "grey"}
+                   disabled={isNaN(amountBuy) || amountBuy === ""}
+                   onClick={() =>  pactContext.buyHT(amountBuy)}
+                   >
+                    buy HT
+                   </Button>
+                 }
               />
           </Form.Field>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
@@ -157,6 +164,15 @@ const Home = () => {
                 placeholder='Amount to Sell'
                 value={amountSell}
                 onChange={(e) => setAmountSell(e.target.value)}
+                action={
+                   <Button
+                   color={(!isNaN(amountSell) && amountSell !== "") ? "orange" : "grey"}
+                   disabled={isNaN(amountSell) || amountSell === ""}
+                   onClick={() =>  pactContext.sellHT(amountSell)}
+                   >
+                    sell HT
+                   </Button>
+                 }
               />
           </Form.Field>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
@@ -178,6 +194,16 @@ const Home = () => {
                 placeholder='Amount to Transfer to Kuro'
                 value={amountToKuro}
                 onChange={(e) => setAmountToKuro(e.target.value)}
+                action={
+                   <Button
+                   style={{width: 85}}
+                   color={(!isNaN(amountToKuro) && amountToKuro !== "") ? "orange" : "grey"}
+                   disabled={isNaN(amountToKuro) || amountToKuro === ""}
+                   onClick={() =>  pactContext.transferCWKuro(amountToKuro)}
+                   >
+                    transfer
+                   </Button>
+                 }
               />
           </Form.Field>
         </Form>
@@ -204,18 +230,28 @@ const Home = () => {
                 placeholder='Amount to Transfer to Chainweb'
                 value={amountToCW}
                 onChange={(e) => setAmountToCW(e.target.value)}
+                action={
+                   <Button
+                   style={{width: 85}}
+                   color={(!isNaN(amountToCW) && amountToCW !== "") ? "orange" : "grey"}
+                   disabled={isNaN(amountToCW) || amountToCW === ""}
+                   onClick={() =>  pactContext.transferKuroCW(amountToCW)}
+                   >
+                    transfer
+                   </Button>
+                 }
               />
           </Form.Field>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px", marginBottom: 100}} >
-            <label style={{color: "white"}}>Transfer to account within Kuro
+            <label style={{color: "white"}}>Pay another Kuro account
               <Popup
                 trigger={
                   <Icon name='help circle' style={{"marginLeft": "2px"}}/>
                 }
                 position='top center'
               >
-                <Popup.Header>What is Transfering To Chainweb? </Popup.Header>
-                <Popup.Content>Transfering to Chainweb allows you to transfer Hybrid Token accumulated on Kuro that is then convertible back to KDA at a 1:1 ratio on the Chainweb side</Popup.Content>
+                <Popup.Header>What is Transfering within Kuro? </Popup.Header>
+                <Popup.Content>Transfering within Kuro allows you to pay other existing accounts with the Hybrid Token</Popup.Content>
               </Popup>
             </label>
             <div>
@@ -234,6 +270,15 @@ const Home = () => {
                 placeholder='Amount'
                 value={transferAmount}
                 onChange={(e) => setTransferAmount(e.target.value)}
+                action={
+                   <Button
+                   color={(!isNaN(transferAmount) && transferAmount !== "" && transferTo !== "") ? "orange" : "grey"}
+                   disabled={isNaN(transferAmount) || transferAmount === "" || transferTo === ""}
+                   onClick={() =>  pactContext.transferInKuro(transferTo, transferAmount)}
+                   >
+                    pay HT
+                   </Button>
+                 }
               />
             </div>
           </Form.Field>
