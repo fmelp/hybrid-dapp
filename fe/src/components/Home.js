@@ -71,34 +71,104 @@ const Home = () => {
                 onChange={(e) => setAmountBuy(e.target.value)}
               />
           </Form.Field>
-        </Form>
-        <Form>
-          <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 30, textAlign: 'center'}}>
-            Kuro Functions
-          </Header>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
-            <label style={{color: "white"}}>Buy Hybrid Token (KDA -> HT)
+            <label style={{color: "white"}}>Sell Hybrid Token (HT -> KDA)
               <Popup
                 trigger={
                   <Icon name='help circle' style={{"marginLeft": "2px"}}/>
                 }
                 position='top center'
               >
-                <Popup.Header>What is Buying Hybrid Token? </Popup.Header>
-                <Popup.Content>When you buy a Hybrid Token, you are trading your KDA 1:1 with this new currency that is spendable in the Kuro private blockchain. You will not have access to these funds until you transfer it to kuro. Note that you can always convert back to KDA at the same 1:1 ratio.</Popup.Content>
+                <Popup.Header>What is Selling Hybrid Token? </Popup.Header>
+                <Popup.Content>When you sell Hybrid Token, you are converting it back to KDA at a 1:1 ratio. Please note you need to have that amount of Hybrid Token on the Chainweb side before cashing out. If you still have the balance on Kuro, please transfer it to Chainweb before attempting to cash out.</Popup.Content>
               </Popup>
             </label>
               <Form.Input
                 style={{width:"440px"}}
                 icon='dollar sign'
                 iconPosition='left'
-                placeholder='Amount to Buy'
-                value={amountBuy}
-                onChange={(e) => setAmountBuy(e.target.value)}
+                placeholder='Amount to Sell'
+                value={amountSell}
+                onChange={(e) => setAmountSell(e.target.value)}
+              />
+          </Form.Field>
+          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
+            <label style={{color: "white"}}>Transfer Token to Kuro (Chainweb -> Kuro)
+              <Popup
+                trigger={
+                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
+                }
+                position='top center'
+              >
+                <Popup.Header>What is Transfering To Kuro? </Popup.Header>
+                <Popup.Content>Transfering to Kuro allows you to spend transfer and spend your Hybrid Token in the Kuro ecosystem, which comes with the speed and benefits of a private chain. For example, you can pay others within the Kuro ecosystem in an instant manner (no more need to wait for mined blocks!)</Popup.Content>
+              </Popup>
+            </label>
+              <Form.Input
+                style={{width:"440px"}}
+                icon='exchange'
+                iconPosition='left'
+                placeholder='Amount to Transfer to Kuro'
+                value={amountToKuro}
+                onChange={(e) => setAmountToKuro(e.target.value)}
               />
           </Form.Field>
         </Form>
-
+        <Form>
+          <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 30, textAlign: 'center'}}>
+            Kuro Functions
+          </Header>
+          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
+            <label style={{color: "white"}}>Transfer Token to Chainweb (Kuro -> Chainweb)
+              <Popup
+                trigger={
+                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
+                }
+                position='top center'
+              >
+                <Popup.Header>What is Transfering To Chainweb? </Popup.Header>
+                <Popup.Content>Transfering to Chainweb allows you to transfer Hybrid Token accumulated on Kuro that is then convertible back to KDA at a 1:1 ratio on the Chainweb side</Popup.Content>
+              </Popup>
+            </label>
+              <Form.Input
+                style={{width:"440px"}}
+                icon='exchange'
+                iconPosition='left'
+                placeholder='Amount to Transfer to Chainweb'
+                value={amountToCW}
+                onChange={(e) => setAmountToCW(e.target.value)}
+              />
+          </Form.Field>
+          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px", marginBottom: 400}} >
+            <label style={{color: "white"}}>Transfer to accounts within Kuro
+              <Popup
+                trigger={
+                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
+                }
+                position='top center'
+              >
+                <Popup.Header>What is Transfering To Chainweb? </Popup.Header>
+                <Popup.Content>Transfering to Chainweb allows you to transfer Hybrid Token accumulated on Kuro that is then convertible back to KDA at a 1:1 ratio on the Chainweb side</Popup.Content>
+              </Popup>
+            </label>
+              <Form.Input
+                style={{width:"440px"}}
+                icon='user'
+                iconPosition='left'
+                placeholder='Account Name'
+                value={amountToCW}
+                onChange={(e) => setAmountToCW(e.target.value)}
+              />
+              <Form.Input
+                style={{width:"440px"}}
+                icon='dollar sign'
+                iconPosition='left'
+                placeholder='Amount'
+                value={amountToCW}
+                onChange={(e) => setAmountToCW(e.target.value)}
+              />
+          </Form.Field>
+        </Form>
       </Grid.Column>
     </Grid>
   );
