@@ -33,9 +33,6 @@ const Home = () => {
   const [transferAmount, setTransferAmount] = useState("");
   const [transferTo, setTransferTo] = useState("");
 
-  // const isDecimal = (str) => {
-  //
-  // }
 
   return (
     <Grid columns={2} padded scrollable verticalAlign="top">
@@ -44,10 +41,80 @@ const Home = () => {
         <Header as="h6" style={{color:'black', fontWeight: 'bold', fontSize: 40, marginTop: 20}}>
           Kadena Hybrid Demo
         </Header>
+        <Form>
+          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "20px", marginBottom: 30, textAlign: "left"}} >
+            <label style={{color: "#f4aa3c" }}>Enter Your Account Name
+              <Popup
+                trigger={
+                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
+                }
+                position='top center'
+              >
+              <Popup.Header>What is Account Name? </Popup.Header>
+              <Popup.Content>Account Name is the unique sequence of characters that you use to identify yourself in chainweb. You'll be asked to sign with associated key/keys when you make transactions. Account names need to be unique and are assosciated to keypairs that can sign its transactions. The simplest way would be to use your public key as your account name</Popup.Content>
+              </Popup>
+            </label>
+              <Form.Input
+                style={{width:"440px"}}
+                icon='user'
+                iconPosition='left'
+                placeholder='Account Name'
+                value={pactContext.accountName}
+                onChange={(e) => pactContext.setAccountName(e.target.value)}
+                action={
+                   <Button
+                   color='yellow'
+                   icon="redo"
+                   onClick={() => pactFecth()}
+                   >
+                    <Icon name="redo"/>
+                    update
+                   </Button>
+                 }
+              />
+          </Form.Field>
+        </Form>
+        <Message color="violet" style={{marginLeft: 100, marginRight: 100}}>
+          <Message.Header>
+            KDA Balance:
+          </Message.Header>
+          <div>
+            {pactContext.coinBalance}
+          </div>
+        </Message>
+        <Message color="blue" style={{marginLeft: 100, marginRight: 100}}>
+          <Message.Header>
+            Hybrid Token (Chainweb) Balance:
+          </Message.Header>
+          <div>
+            {pactContext.cwBalance}
+          </div>
+        </Message>
+        <Message color="teal" style={{marginLeft: 100, marginRight: 100}}>
+          <Message.Header>
+            Hybrid Token (Kuro) Balance:
+          </Message.Header>
+          <div>
+            {pactContext.kuroBalance}
+          </div>
+        </Message>
+        <Button
+            style={{
+              backgroundColor: "#f4aa3c",
+              color: "white",
+              marginBottom: 10,
+              marginTop: 20,
+              width: 340,
+              }}
+            onClick={() => pactFecth()}
+            disabled={!pactContext.accountName}
+          >
+          Refresh Balances
+        </Button>
       </Grid.Column>
       <Grid.Column style={{overflow: "auto", backgroundColor: "#f4aa3c"}}>
         <Form>
-          <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 30, textAlign: 'center'}}>
+          <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 70, marginBottom: 20, textAlign: 'center'}}>
             Chainweb Functions
           </Header>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
@@ -115,7 +182,7 @@ const Home = () => {
           </Form.Field>
         </Form>
         <Form>
-          <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 30, textAlign: 'center'}}>
+          <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 40, marginBottom: 20, textAlign: 'center'}}>
             Kuro Functions
           </Header>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
@@ -139,8 +206,8 @@ const Home = () => {
                 onChange={(e) => setAmountToCW(e.target.value)}
               />
           </Form.Field>
-          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px", marginBottom: 400}} >
-            <label style={{color: "white"}}>Transfer to accounts within Kuro
+          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px", marginBottom: 100}} >
+            <label style={{color: "white"}}>Transfer to account within Kuro
               <Popup
                 trigger={
                   <Icon name='help circle' style={{"marginLeft": "2px"}}/>
@@ -151,22 +218,24 @@ const Home = () => {
                 <Popup.Content>Transfering to Chainweb allows you to transfer Hybrid Token accumulated on Kuro that is then convertible back to KDA at a 1:1 ratio on the Chainweb side</Popup.Content>
               </Popup>
             </label>
-              <Form.Input
-                style={{width:"440px"}}
+            <div>
+              <Input
+                style={{width:"440px", marginBottom: 3}}
                 icon='user'
                 iconPosition='left'
                 placeholder='Account Name'
-                value={amountToCW}
-                onChange={(e) => setAmountToCW(e.target.value)}
+                value={transferTo}
+                onChange={(e) => setTransferTo(e.target.value)}
               />
-              <Form.Input
+              <Input
                 style={{width:"440px"}}
                 icon='dollar sign'
                 iconPosition='left'
                 placeholder='Amount'
-                value={amountToCW}
-                onChange={(e) => setAmountToCW(e.target.value)}
+                value={transferAmount}
+                onChange={(e) => setTransferAmount(e.target.value)}
               />
+            </div>
           </Form.Field>
         </Form>
       </Grid.Column>
@@ -243,3 +312,14 @@ const Home = () => {
 }
 
 export default Home;
+
+
+// <Header as="h6" style={{color:'black', fontWeight: 'bold', fontSize: 30, marginTop: 20}}>
+//   KDA Balance: {pactContext.coinBalance}
+// </Header>
+// <Header as="h6" style={{color:"#f4aa3c", fontWeight: 'bold', fontSize: 30, marginTop: 20}}>
+//   Hybrid Token (Chainweb) Balance: {pactContext.cwBalance}
+// </Header>
+// <Header as="h6" style={{color:'black', fontWeight: 'bold', fontSize: 30, marginTop: 20}}>
+//   Hybrid Token (Kuro) Balance: {pactContext.kuroBalance}
+// </Header>

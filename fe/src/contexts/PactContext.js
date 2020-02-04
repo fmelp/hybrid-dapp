@@ -8,6 +8,8 @@ const kuroUrls = ["http://34.204.71.247:9002", "http://54.166.153.21:9000", "htt
 const createAPIHost = (network, chainId) => `https://${network}.testnet.chainweb.com/chainweb/0.0/testnet04/chain/${chainId}/pact`
 const dumKeyPair = Pact.crypto.genKeyPair();
 
+const savedAcct = localStorage.getItem('acct');
+
 export class PactStore extends React.Component {
 
   state = {
