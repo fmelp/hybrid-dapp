@@ -39,7 +39,7 @@ const Home = () => {
       <Grid.Column textAlign="center" style={{overflow: "auto"}}>
         <img src={require("../kadena.png")} style={{height:70, marginTop: 50}}/>
         <Header as="h6" style={{color:'black', fontWeight: 'bold', fontSize: 40, marginTop: 20}}>
-          Kadena Hybrid Demo
+          Megabank Coin Demo
         </Header>
         <Form>
           <Form.Field  style={{marginLeft: 100, marginRight: 100, marginTop: "20px", marginBottom: 30, textAlign: "left"}} >
@@ -82,7 +82,7 @@ const Home = () => {
         </Message>
         <Message color="orange" style={{marginLeft: 100, marginRight: 100}}>
           <Message.Header>
-            Hybrid Token (Chainweb) Balance:
+            Megabank Savings Account Balance:
           </Message.Header>
           <div>
             {pactContext.cwBalance}
@@ -90,7 +90,7 @@ const Home = () => {
         </Message>
         <Message color="yellow" style={{marginLeft: 100, marginRight: 100}}>
           <Message.Header>
-            Hybrid Token (Kuro) Balance:
+            Megabank Checking Account Balance:
           </Message.Header>
           <div>
             {pactContext.kuroBalance}
@@ -113,18 +113,18 @@ const Home = () => {
       <Grid.Column style={{overflow: "auto", backgroundColor: "#f4aa3c"}}>
         <Form>
           <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 70, marginBottom: 20, textAlign: 'center'}}>
-            Chainweb Functions
+            Savings Account Actions
           </Header>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
-            <label style={{color: "white"}}>Buy Hybrid Token (KDA -> HT)
+            <label style={{color: "white"}}>Buy Megabank Coin (KDA -> MBC)
               <Popup
                 trigger={
                   <Icon name='help circle' style={{"marginLeft": "2px"}}/>
                 }
                 position='top center'
               >
-                <Popup.Header>What is Buying Hybrid Token? </Popup.Header>
-                <Popup.Content>When you buy a Hybrid Token, you are trading your KDA 1:1 with this new currency that is spendable in the Kuro private blockchain. You will not have access to these funds until you transfer it to kuro. Note that you can always convert back to KDA at the same 1:1 ratio.</Popup.Content>
+                <Popup.Header>What is  Megabank Coin? </Popup.Header>
+                <Popup.Content>When you buy a Megabank Coin, you are trading your KDA 1:1 with this new digital currency that is spendable instantly (no need to wait for blockchain confirmation times). You will only be able to transfer these funds to pay others once you transfer them to your checking account. Note that you can always convert Megabank coins in your savings account back to KDA at the same 1:1 ratio.</Popup.Content>
               </Popup>
             </label>
               <Form.Input
@@ -140,21 +140,21 @@ const Home = () => {
                    disabled={isNaN(amountBuy) || amountBuy === ""}
                    onClick={() =>  pactContext.buyHT(amountBuy)}
                    >
-                    buy HT
+                    buy MBC
                    </Button>
                  }
               />
           </Form.Field>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
-            <label style={{color: "white"}}>Sell Hybrid Token (HT -> KDA)
+            <label style={{color: "white"}}>Sell Megabank Coin (MBC -> KDA)
               <Popup
                 trigger={
                   <Icon name='help circle' style={{"marginLeft": "2px"}}/>
                 }
                 position='top center'
               >
-                <Popup.Header>What is Selling Hybrid Token? </Popup.Header>
-                <Popup.Content>When you sell Hybrid Token, you are converting it back to KDA at a 1:1 ratio. Please note you need to have that amount of Hybrid Token on the Chainweb side before cashing out. If you still have the balance on Kuro, please transfer it to Chainweb before attempting to cash out.</Popup.Content>
+                <Popup.Header>What is Selling Megabank coin? </Popup.Header>
+                <Popup.Content>When you sell Megabank coin, you are converting it back to KDA at a 1:1 ratio. Please note you need to have that amount of Megabank coin in your savings account before cashing out. If you still have the balance in your checking account, please transfer it to savings before attempting to cash out.</Popup.Content>
               </Popup>
             </label>
               <Form.Input
@@ -170,33 +170,33 @@ const Home = () => {
                    disabled={isNaN(amountSell) || amountSell === ""}
                    onClick={() =>  pactContext.sellHT(amountSell)}
                    >
-                    sell HT
+                    sell MBC
                    </Button>
                  }
               />
           </Form.Field>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
-            <label style={{color: "white"}}>Transfer Token to Kuro (Chainweb -> Kuro)
+            <label style={{color: "white"}}>Transfer to Checking Account
               <Popup
                 trigger={
                   <Icon name='help circle' style={{"marginLeft": "2px"}}/>
                 }
                 position='top center'
               >
-                <Popup.Header>What is Transfering To Kuro? </Popup.Header>
-                <Popup.Content>Transfering to Kuro allows you to spend transfer and spend your Hybrid Token in the Kuro ecosystem, which comes with the speed and benefits of a private chain. For example, you can pay others within the Kuro ecosystem in an instant manner (no more need to wait for mined blocks!)</Popup.Content>
+                <Popup.Header>What is Transfering To Checking Account? </Popup.Header>
+                <Popup.Content>Transfering to your checking account allows you to spend your Megabank coins instananeously by sending it to any participating individual or business.</Popup.Content>
               </Popup>
             </label>
               <Form.Input
                 style={{width:"440px"}}
                 icon='exchange'
                 iconPosition='left'
-                placeholder='Amount to Transfer to Kuro'
+                placeholder='Amount to Transfer to Checking'
                 value={amountToKuro}
                 onChange={(e) => setAmountToKuro(e.target.value)}
                 action={
                    <Button
-                   style={{width: 85}}
+                   style={{width: 96}}
                    color={(!isNaN(amountToKuro) && amountToKuro !== "") ? "orange" : "grey"}
                    disabled={isNaN(amountToKuro) || amountToKuro === ""}
                    onClick={() =>  pactContext.transferCWKuro(amountToKuro)}
@@ -209,30 +209,30 @@ const Home = () => {
         </Form>
         <Form>
           <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 40, marginBottom: 20, textAlign: 'center'}}>
-            Kuro Functions
+            Checking Account Actions
           </Header>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
-            <label style={{color: "white"}}>Transfer Token to Chainweb (Kuro -> Chainweb)
+            <label style={{color: "white"}}>Transfer to Savings account
               <Popup
                 trigger={
                   <Icon name='help circle' style={{"marginLeft": "2px"}}/>
                 }
                 position='top center'
               >
-                <Popup.Header>What is Transfering To Chainweb? </Popup.Header>
-                <Popup.Content>Transfering to Chainweb allows you to transfer Hybrid Token accumulated on Kuro that is then convertible back to KDA at a 1:1 ratio on the Chainweb side</Popup.Content>
+                <Popup.Header>What is Transfering To Savings Account? </Popup.Header>
+                <Popup.Content>Transfering to your savings account allows you to cash out your Megabank coins back to KDA at a 1:1 ratio once the transfer between checking and savings account is complete</Popup.Content>
               </Popup>
             </label>
               <Form.Input
                 style={{width:"440px"}}
                 icon='exchange'
                 iconPosition='left'
-                placeholder='Amount to Transfer to Chainweb'
+                placeholder='Amount to Transfer to Savings'
                 value={amountToCW}
                 onChange={(e) => setAmountToCW(e.target.value)}
                 action={
                    <Button
-                   style={{width: 85}}
+                   style={{width: 96}}
                    color={(!isNaN(amountToCW) && amountToCW !== "") ? "orange" : "grey"}
                    disabled={isNaN(amountToCW) || amountToCW === ""}
                    onClick={() =>  pactContext.transferKuroCW(amountToCW)}
@@ -243,15 +243,15 @@ const Home = () => {
               />
           </Form.Field>
           <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px", marginBottom: 100}} >
-            <label style={{color: "white"}}>Pay another Kuro account
+            <label style={{color: "white"}}>Pay People or Businesses
               <Popup
                 trigger={
                   <Icon name='help circle' style={{"marginLeft": "2px"}}/>
                 }
                 position='top center'
               >
-                <Popup.Header>What is Transfering within Kuro? </Popup.Header>
-                <Popup.Content>Transfering within Kuro allows you to pay other existing accounts with the Hybrid Token</Popup.Content>
+                <Popup.Header>Who can I pay? </Popup.Header>
+                <Popup.Content>You can pay any entity (indiviudal or business), with a registered Megabank coin account in a cryptographically safe, but instantaneous manner</Popup.Content>
               </Popup>
             </label>
             <div>
@@ -276,7 +276,7 @@ const Home = () => {
                    disabled={isNaN(transferAmount) || transferAmount === "" || transferTo === ""}
                    onClick={() =>  pactContext.transferInKuro(transferTo, transferAmount)}
                    >
-                    pay HT
+                    pay MBC
                    </Button>
                  }
               />
@@ -286,85 +286,6 @@ const Home = () => {
       </Grid.Column>
     </Grid>
   );
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //     <p>
-  //       KADENA HYBRID BLOCKCHAIN DEMO
-  //     </p>
-  //     <text>log-in below:</text>
-  //     <input value={pactContext.accountName} onChange={(e) => pactContext.setAccountName(e.target.value)}/>
-  //     <Button onClick={() => pactFecth()}>
-  //       login
-  //     </Button>
-  //       <p style={{ color: "red" }}>
-  //         Kadena Coin Balance: {pactContext.coinBalance}
-  //       </p>
-  //       <p style={{ color: "green" }}>
-  //         Hybrid Token Balance (Chainweb): {pactContext.cwBalance}
-  //       </p>
-  //       <text>enter amount to buy (Kadena -> HT)</text>
-  //       <input value={amountBuy} onChange={(e) => setAmountBuy(e.target.value)}/>
-  //       <Button
-  //         disabled={amountBuy ? false : true}
-  //         onClick={() => {
-  //           pactContext.buyHT(amountBuy)}}>
-  //         buy hybrid token
-  //       </Button>
-  //       <br></br>
-  //       <text>enter amount to sell (HT -> Kadena)</text>
-  //       <input value={amountSell} onChange={(e) => setAmountSell(e.target.value)}/>
-  //       <Button
-  //         disabled={amountSell ? false : true}
-  //         onClick={() => {
-  //         pactContext.sellHT(amountSell)}}>
-  //         sell hybrid token
-  //       </Button>
-  //       <p style={{ color: "green" }}>
-  //         Hybrid Token Balance (Kuro): {pactContext.kuroBalance}
-  //       </p>
-  //       <text>enter amount to transfer (CW -> Kuro)</text>
-  //       <input value={amountToKuro} onChange={(e) => setAmountToKuro(e.target.value)}/>
-  //       <Button
-  //         disabled={amountToKuro ? false : true}
-  //         onClick={() => {
-  //         pactContext.transferCWKuro(amountToKuro)}}>
-  //         transfer chainweb -> kuro
-  //       </Button>
-  //       <br></br>
-  //       <text>enter amount to transfer (Kuro -> CW)</text>
-  //       <input value={amountToCW} onChange={(e) => setAmountToCW(e.target.value)}/>
-  //       <Button
-  //         disabled={amountToCW ? false : true}
-  //         onClick={() => {
-  //         pactContext.transferKuroCW(amountToCW)}}>
-  //         transfer kuro -> chainweb
-  //       </Button>
-  //       <br></br>
-  //       <text>enter amount to transfer within Kuro</text>
-  //       <input value={transferAmount} onChange={(e) => setTransferAmount(e.target.value)}/>
-  //       <text>account</text>
-  //       <input value={transferTo} onChange={(e) => setTransferTo(e.target.value)}/>
-  //       <Button
-  //         disabled={(transferAmount && transferTo) ? false : true}
-  //         onClick={() => {
-  //         pactContext.transferInKuro(transferTo, transferAmount)}}>
-  //         transfer within kuro
-  //       </Button>
-  //     </header>
-  //   </div>
-  // );
 }
 
 export default Home;
-
-
-// <Header as="h6" style={{color:'black', fontWeight: 'bold', fontSize: 30, marginTop: 20}}>
-//   KDA Balance: {pactContext.coinBalance}
-// </Header>
-// <Header as="h6" style={{color:"#f4aa3c", fontWeight: 'bold', fontSize: 30, marginTop: 20}}>
-//   Hybrid Token (Chainweb) Balance: {pactContext.cwBalance}
-// </Header>
-// <Header as="h6" style={{color:'black', fontWeight: 'bold', fontSize: 30, marginTop: 20}}>
-//   Hybrid Token (Kuro) Balance: {pactContext.kuroBalance}
-// </Header>

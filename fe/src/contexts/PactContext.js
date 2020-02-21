@@ -21,6 +21,7 @@ export class PactStore extends React.Component {
 
   convertDecimal = (decimal) => {
     decimal = decimal.toString();
+    if (decimal[0] === ".") {return "0" + decimal}
     if (decimal.includes('.')) { return decimal }
     if ((decimal / Math.floor(decimal)) === 1) {
       decimal = decimal + ".0"
@@ -43,6 +44,8 @@ export class PactStore extends React.Component {
     const data = await cmd;
     if (data.result.status === "success") {
       await this.setState({ coinBalance: data.result.data.toString().substring(0,15) })
+    } else {
+      await this.setState({ coinBalance: "n/a" })
     }
   }
 
@@ -106,6 +109,8 @@ export class PactStore extends React.Component {
     const data = await cmd;
     if (data.result.status === "success") {
       await this.setState({ cwBalance: data.result.data.toString().substring(0,15) })
+    } else {
+      await this.setState({ cwBalance: "n/a" })
     }
 
   }
@@ -118,6 +123,8 @@ export class PactStore extends React.Component {
     const data = await cmd;
     if (data.result.status === "success") {
       await this.setState({ kuroBalance: data.result.data.toString().substring(0,15)  })
+    } else {
+      await this.setState({ kuroBalance: "n/a" })
     }
 
   }
