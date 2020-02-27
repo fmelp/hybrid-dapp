@@ -4,7 +4,7 @@
 vist our portal [here](http://hybrid.chainweb.com/)
 
 pre-requirements:
-  - downloading Chainweaver [desktop wallet (macOS)](http://builds.s3.amazonaws.com/Kadena+Chainweaver.1.1.2-2020-02-27.dmg)
+  - downloading Chainweaver [desktop wallet (macOS)](https://chainweaver-builds.s3.amazonaws.com/Kadena+Chainweaver.1.1.2-2020-02-27.dmg)
   - funding a Kadena public account with our testnet [coin faucet](https://faucet.testnet.chainweb.com/)
   - add testnet and kuro to wallet network settings
     - testnet: `us1.testnet.chainweb.com, us2.testnet.chainweb.com, eu1.testnet.chainweb.com, ap1.testnet.chainweb.com`
