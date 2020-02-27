@@ -25,3 +25,4 @@ pre-requirements:
     - Sign transaction with chainweaver
     - intstant transaction clearance
   - To cash out reverse checking account step with savings
+  - NOTE: all kuro transactions will display the message 'couldn't get response from node' when signing the transactions. Please ignore it and press submit. Bug fix coming shortly
