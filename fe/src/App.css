@@ -103,15 +103,18 @@ hr {
 }
 
 .info-block > div {
+  margin:10px;
   flex-basis: 50%;
 }
 
-.balance-block {
-  height: 53px;
+.transfer-block {
+  margin:10px;
 }
-
+.sub-header {
+  margin-top: 10px;
+}
 .buy-input {
-  margin: 10px;
+  margin: 5px;
   width: 150px;
   height: 36px;
   border-radius: 3px;

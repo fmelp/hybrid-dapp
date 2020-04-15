@@ -40,8 +40,7 @@ const Home = () => {
         <div className="sub-header">
           <p>
             Interoperate between public and private blockchain networks through stablecoin smart contracts.
-          </p>
-          <br/>
+          </p><br/>
           <p>
             See the <a>Demo Walkthrough</a> and <a>Project README</a> for instruction.
           </p>
@@ -92,7 +91,7 @@ const Home = () => {
                </div>
             </div>
             <hr/>
-            <div>
+            <div className="transfer-block">
               <p className="step">Step 2</p>
               <p>Buy StablecoinX (KDA to SCX)</p>
             </div>
@@ -132,7 +131,7 @@ const Home = () => {
                </div>
             </div>
             <hr/>
-            <div>
+            <div className="transfer-block">
               <p className="step">Step 3</p>
               <p>Transfer StablecoinX to SCX InstantPay</p>
             </div>
@@ -150,7 +149,7 @@ const Home = () => {
               >Transfer</button>
             </div>
             <hr/>
-            <div>
+            <div className="transfer-block">
               <p className="step">Step 6</p>
               <p>Sell StablecoinX (SCX to KDA)</p>
             </div>
@@ -188,7 +187,7 @@ const Home = () => {
                 </div>
               </div>
               <hr/>
-              <div>
+              <div className="transfer-block">
                 <p className="step">Step 4</p>
                 <p>Transfer between SCX InstantPay accounts</p>
               </div>
@@ -213,7 +212,7 @@ const Home = () => {
                 />
               </div>
               <hr/>
-              <div>
+              <div className="transfer-block">
                 <p className="step">Step 5</p>
                 <p>Transfer SCX InstantPay to StablecoinX</p>
               </div>
