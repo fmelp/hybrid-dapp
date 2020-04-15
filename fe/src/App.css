@@ -4,19 +4,109 @@
 
 .App-logo {
   height: 40vmin;
+
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app {
+  font-family: "Avenir Next" !important;
+  margin-left: 32px;
+}
+label {
+  display: block;
+  float: left;
+}
+
+.acct-input {
+  margin: 10px;
+  width: 610px;
+  height: 36px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px 0 rgba(74, 144, 226, 0.7);
+  border: solid 1px #4a90e2;
+  background-color: #ffffff;
+}
+
+.refresh-button {
+  width: 139px;
+  height: 36px;
+  border-radius: 6px;
+  background-image: linear-gradient(to bottom, #54a4ff, #4383cc);
+}
+
+.flex-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: row;
 }
 
-.App-link {
-  color: #09d3ac;
+.flex-container > div {
+  margin: 10px;
+  width: 300px;
+  height: 384px;
+}
+
+.step {
+  font-weight: 600;
+}
+
+.ARROW {
+  width: 25px;
+  height: 1px;
+  border: solid 2px #ffffff;
+}
+.line {
+  margin-top: 10px;
+  margint-bottom: 10px;
+  width: 959px;
+  height: 2px;
+  border: solid 1px #979797;
+}
+
+hr {
+  width: 300px;
+  height: 1px;
+  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+  border: solid 1px #979797;
+  background-color: #ffffff;
+}
+
+.info-block {
+  display: flex;
+  flex-direction: "column";
+  height: 53px;
+}
+
+.info-block > div {
+  flex-basis: 50%;
+}
+
+.balance-block {
+  height: 53px;
+}
+
+.buy-input {
+  width: 150px;
+  height: 36px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px 0 rgba(74, 144, 226, 0.7);
+  border: solid 1px #4a90e2;
+  background-color: #ffffff;
+}
+
+.buy-button {
+  width: 120px;
+  height: 36px;
+  font-weight: bold;
+  border-radius: 6px;
+  color: white;
+  background-image: linear-gradient(to bottom, #54a4ff, #4383cc);
+}
+
+.amount-input {
+  width: 122px;
+  height: 36px;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+  border: solid 1px #979797;
+  background-color: #ffffff;
 }
