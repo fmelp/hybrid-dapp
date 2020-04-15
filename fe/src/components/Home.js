@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import logo from '../logo.svg';
+import { Input, Button, Divider, Icon } from 'semantic-ui-react';
 import '../App.css';
 import PactContext from "../contexts/PactContext";
 
@@ -42,36 +43,28 @@ const Home = () => {
             Interoperate between public and private blockchain networks through stablecoin smart contracts.
           </p><br/>
           <p>
-            See the <a>Demo Walkthrough</a> and <a>Project README</a> for instruction.
+            See the <a>Demo Walkthrough</a> and <a href="https://github.com/fmelp/hybrid-dapp">Project README</a> for instruction.
           </p>
         </div>
-        <div className="line"/>
+        <Divider className="line"/>
         <div>
-          <div>
-            <label for="acct-name" style={{height: 36, marginTop: 5}}><p className="step">Step 1</p>Enter Your Account Name</label>
-              <input
+          <div className="acct-block">
+            <label for="acct-name" style={{height: 36, marginTop: 9}}><p className="step">Step 1</p>Enter Your Account Name</label>
+              <Input
                 name="acct-name"
                 className="acct-input"
                 placeholder='Account Name'
                 value={pactContext.accountName}
                 onChange={(e) => pactContext.setAccountName(e.target.value)}
-                action={
-                   <button
-                   className="account"
-                   onClick={() => pactFecth()}
-                   >
-                   account
-                   </button>
-                 }
               />
-              <button
-                  className="refresh-button"
-                  onClick={() => pactFecth()}
-                  disabled={!pactContext.accountName}
-                >
-                <p style={{color: "white", fontStyle: "bold"}}>Refresh Balances</p>
-              </button>
-          </div>
+                <Button
+                    primary
+                    onClick={() => pactFecth()}
+                    disabled={!pactContext.accountName}
+                  >
+                  Refresh Balances
+                </Button>
+        </div>
         <div className="flex-container">
           <div style={{backgroundColor: "#c9f3fc", marginLeft: 0}}>
             <div className="info-block" style={{backgroundColor: "#a6effe"}}>
@@ -85,32 +78,32 @@ const Home = () => {
               </div>
             </div>
             <div className="info-block">
-              <div>Account Balance</div>
+              <div className="account-label">Account Balance</div>
                <div>
-                <input className="amount-input" value={pactContext.coinBalance}/>
+                <Input className="amount-input" value={pactContext.coinBalance}/>
                </div>
             </div>
-            <hr/>
+            <Divider className="step-line"/>
             <div className="transfer-block">
               <p className="step">Step 2</p>
               <p>Buy StablecoinX (KDA to SCX)</p>
             </div>
             <div>
-            <input
+            <Input
               className="buy-input"
-              icon='dollar sign'
-              iconPosition='left'
               placeholder='Amount to Buy'
               value={amountBuy}
               onChange={(e) => setAmountBuy(e.target.value)}
             />
-            <button
+            <Button
+              primary
               className="buy-button"
               disabled={isNaN(amountBuy) || amountBuy === ""}
               onClick={() =>  pactContext.buyHT(amountBuy)}
             >
-             buy SXC
-            </button>
+             Buy SCX
+             <Icon name='right arrow' />
+            </Button>
             </div>
           </div>
           <div style={{backgroundColor: "#d3e4ff"}}>
@@ -125,47 +118,55 @@ const Home = () => {
               </div>
             </div>
             <div className="info-block">
-              <div>Account Balance</div>
+              <div className="account-label">Account Balance</div>
                <div>
-                <input className="amount-input" value={pactContext.cwBalance}/>
+                <Input className="amount-input" value={pactContext.cwBalance}/>
                </div>
             </div>
-            <hr/>
-            <div className="transfer-block">
-              <p className="step">Step 3</p>
-              <p>Transfer StablecoinX to SCX InstantPay</p>
-            </div>
+            <Divider className="step-line"/>
+            <div className="middle">
+              <div className="transfer-block">
+                <p className="step">Step 3</p>
+                <p>Transfer StablecoinX to SCX InstantPay</p>
+              </div>
             <div>
-            <input
-              className="buy-input"
-              placeholder='Amount to Transfer'
-              value={amountToKuro}
-              onChange={(e) => setAmountToKuro(e.target.value)}
-              />
-              <button
-                className="buy-button"
-                disabled={isNaN(amountToKuro) || amountToKuro === ""}
-                onClick={() =>  pactContext.transferCWKuro(amountToKuro)}
-              >Transfer</button>
+              <Input
+                className="buy-input"
+                placeholder='Amount to Transfer'
+                value={amountToKuro}
+                onChange={(e) => setAmountToKuro(e.target.value)}
+                />
+                <Button
+                  primary
+                  className="buy-button"
+                  disabled={isNaN(amountToKuro) || amountToKuro === ""}
+                  onClick={() =>  pactContext.transferCWKuro(amountToKuro)}
+                >Transfer
+                <Icon name='right arrow' />
+                </Button>
             </div>
-            <hr/>
+            </div>
+            <Divider className="step-line"/>
             <div className="transfer-block">
               <p className="step">Step 6</p>
               <p>Sell StablecoinX (SCX to KDA)</p>
             </div>
             <div>
-              <input
+              <Input
                 className="buy-input"
                 value={amountSell}
                 placeholder="Amount to Sell"
                 onChange={(e) => setAmountSell(e.target.value)}
               />
-              <button
+              <Button
+                primary
                 className="buy-button"
                 disabled={isNaN(amountSell) || amountSell === ""}
                 onClick={() =>  pactContext.sellHT(amountSell)}
-              >Sell SCX
-              </button>
+              >
+              <Icon name='left arrow' />
+               Sell SCX
+             </Button>
             </div>
           </div>
           <div style={{backgroundColor: "#e5dbff"}}>
@@ -181,53 +182,60 @@ const Home = () => {
             </div>
             <div>
               <div className="info-block">
-                <div>Account Balance</div>
+                <div className="account-label">Account Balance</div>
                 <div>
-                  <input className="amount-input" value = {pactContext.kuroBalance}/>
+                  <Input className="amount-input" value = {pactContext.kuroBalance}/>
                 </div>
               </div>
-              <hr/>
-              <div className="transfer-block">
-                <p className="step">Step 4</p>
-                <p>Transfer between SCX InstantPay accounts</p>
-              </div>
+              <Divider className="step-line"/>
+              <div className="middle">
+                <div className="transfer-block">
+                  <p className="step">Step 4</p>
+                  <p>Transfer between SCX InstantPay accounts</p>
+                </div>
               <div>
-
-              <input
+              <Input
                 className="buy-input"
                 placeholder='Account Name'
                 value={transferTo}
                 onChange={(e) => setTransferTo(e.target.value)}
               />
-                <button
+                <Button
+                  primary
                   className="buy-button"
                   disabled={isNaN(transferAmount) || transferAmount === "" || transferTo === ""}
                   onClick={() =>  pactContext.transferInKuro(transferTo, transferAmount)}
-                > Transfer</button>
-                <input
+                > Transfer
+                <Icon name='right arrow' />
+                </Button>
+                <Input
                   className="buy-input"
                   placeholder='Amount'
                   value={transferAmount}
                   onChange={(e) => setTransferAmount(e.target.value)}
                 />
               </div>
-              <hr/>
+            </div>
+              <Divider className="step-line"/>
               <div className="transfer-block">
                 <p className="step">Step 5</p>
                 <p>Transfer SCX InstantPay to StablecoinX</p>
               </div>
               <div>
-                <input
+                <Input
                   className="buy-input"
                   placeholder='Amount to Transfer'
                   value={amountToCW}
                   onChange={(e) => setAmountToCW(e.target.value)}
                   />
-                <button
+                <Button
+                  primary
                   className="buy-button"
                   disabled={isNaN(amountToCW) || amountToCW === ""}
                   onClick={() =>  pactContext.transferKuroCW(amountToCW)}
-                >Sell SCX</button>
+                >
+                <Icon name='left arrow' />
+                Transfer</Button>
               </div>
             </div>
           </div>
