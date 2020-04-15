@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import logo from '../logo.svg';
 import { Input, Button, Divider, Icon } from 'semantic-ui-react';
 import '../App.css';
 import PactContext from "../contexts/PactContext";
@@ -242,6 +241,7 @@ const Home = () => {
         </div>
         </div>
       </div>
+      <img src={require("../powered_by_kadena.png")} style={{height:40, marginLeft: 735}}/>
     </div>
   );
 }
