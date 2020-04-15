@@ -32,7 +32,7 @@ const Home = () => {
 
 
   return (
-    <div className="app" textAlign="center" >
+    <div className="app" >
       <div style={{overflow: "auto"}}>
         <p className="header1">
           Stablecoin Instant Pay <span className="header2"> Hybrid Blockchain Demo</span>
@@ -48,7 +48,7 @@ const Home = () => {
         <Divider className="line"/>
         <div>
           <div className="acct-block">
-            <label for="acct-name" style={{height: 36, marginTop: 9}}><p className="step">Step 1</p>Enter Your Account Name</label>
+            <label style={{height: 36, marginTop: 9}}><p className="step">Step 1</p>Enter Your Account Name</label>
               <Input
                 name="acct-name"
                 className="acct-input"

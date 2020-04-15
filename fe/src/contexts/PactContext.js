@@ -121,7 +121,6 @@ export class PactStore extends React.Component {
       keyPairs: dumKeyPair
     }, kuroUrls[0])
     const data = await cmd;
-    console.log(data)
     if (data.result.status === "success") {
       await this.setState({ kuroBalance: data.result.data.toString().substring(0,15)  })
     } else {
