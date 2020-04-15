@@ -51,7 +51,7 @@ const Home = () => {
                 position='top center'
               >
               <Popup.Header>What is Account Name? </Popup.Header>
-              <Popup.Content>Account Name is the unique sequence of characters that you use to identify yourself in chainweb. You'll be asked to sign with associated key/keys when you make transactions. Account names need to be unique and are assosciated to keypairs that can sign its transactions. The simplest way would be to use your public key as your account name</Popup.Content>
+              <Popup.Content>Account Name is the unique sequence of characters that you use to identify yourself in chainweb. You'll be asked to sign with associated key/keys when you make transactions. Account names need to be unique and are associated to keypairs that can sign its transactions. The simplest way would be to use your public key as your account name</Popup.Content>
               </Popup>
             </label>
               <Form.Input
