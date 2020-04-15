@@ -2,21 +2,145 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+.app {
+  width: 959px;
+  margin-top: 70px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Avenir Next" !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+div{
+  margin: auto;
+}
+
+p {
+  margin: 0 !important;
+}
+
+input {
+  font-family: "Avenir Next" !important;
+}
+
+.header1 {
+  margin-top: 25px;
+  font-family: "Avenir Next" !important;
+  width: 802px;
+  height: 49px;
+  font-size: 36px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4a4a4a;
+}
+
+.header2 {
+  font-weight: 500;
+  font-style: italic;
+}
+
+label {
+  display: block;
+  float: left;
+}
+
+.acct-input {
+  margin: 10px;
+  width: 610px;
+  height: 36px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px 0 rgba(74, 144, 226, 0.7);
+}
+
+.flex-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-direction: row;
+}
+
+.flex-container > div {
+  margin: 10px;
+  width: 300px;
+  height: 384px;
+}
+
+.step {
+  font-weight: 600;
+}
+
+.ARROW {
+  width: 25px;
+  height: 1px;
+  border: solid 2px #ffffff;
+}
+
+.line {
+  width: 940px;
+  background-color: #979797;
+  border-top: 0px !important;
+}
+
+hr {
+  width: 300px;
+  height: 1px;
+  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+  border: solid 1px #979797;
+  background-color: #ffffff;
+}
+
+.info-block {
+  display: flex;
+  flex-direction: "column";
+  height: 55px;
+}
+
+.info-block > div {
+  margin:10px;
+  flex-basis: 50%;
+}
+
+.transfer-block {
+  margin:10px;
+}
+.middle {
+  height: 150px;
+}
+.sub-header {
+  margin-top: 10px;
+}
+.buy-input {
+  margin: 5px;
+  width: 155px;
+  height: 36px;
+}
+.account-label {
+  margin: auto !important;
+  margin-left: 10px !important;
+}
+
+.buy-input input {
+  border-color: #4a90e2 !important;
+}
+
+.buy-button {
+  width: 128px;
+  height: 36px;
+  font-weight: bold;
+  border-radius: 6px;
   color: white;
 }
+.step-line {
+  background-color: #979797;
+  border-top: 0px !important;
+  margin-top: 0px !important;
+  margin-bottom: 2px !important;
+}
+.amount-input {
+  width: 122px;
+  height: 36px;
+}
 
-.App-link {
-  color: #09d3ac;
+.amount-input input {
+  border-color: #979797 !important;
 }

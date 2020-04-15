@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import logo from '../logo.svg';
+import { Input, Button, Divider, Icon } from 'semantic-ui-react';
 import '../App.css';
-import { Button, Grid, Input, Icon, Form, List,
-   Modal, Header, Message, Popup, Select, Radio,
-   Tab, TextArea, Loader } from 'semantic-ui-react';
 import PactContext from "../contexts/PactContext";
 
 
@@ -35,256 +32,217 @@ const Home = () => {
 
 
   return (
-    <Grid columns={2} padded verticalAlign="top">
-      <Grid.Column textAlign="center" style={{overflow: "auto"}}>
-        <img src={require("../kadena.png")} style={{height:70, marginTop: 50}}/>
-        <Header as="h6" style={{color:'black', fontWeight: 'bold', fontSize: 40, marginTop: 20}}>
-          Megabank Coin Demo
-        </Header>
-        <Form>
-          <Form.Field  style={{marginLeft: 100, marginRight: 100, marginTop: "20px", marginBottom: 30, textAlign: "left"}} >
-            <label style={{color: "#f4aa3c" }}>Enter Your Account Name
-              <Popup
-                trigger={
-                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
-                }
-                position='top center'
-              >
-              <Popup.Header>What is Account Name? </Popup.Header>
-              <Popup.Content>Account Name is the unique sequence of characters that you use to identify yourself in chainweb. You'll be asked to sign with associated key/keys when you make transactions. Account names need to be unique and are associated to keypairs that can sign its transactions. The simplest way would be to use your public key as your account name</Popup.Content>
-              </Popup>
-            </label>
-              <Form.Input
-                icon='user'
-                iconPosition='left'
+    <div className="app" textAlign="center" >
+      <div style={{overflow: "auto"}}>
+        <p className="header1">
+          Stablecoin Instant Pay <span className="header2"> Hybrid Blockchain Demo</span>
+        </p>
+        <div className="sub-header">
+          <p>
+            Interoperate between public and private blockchain networks through stablecoin smart contracts.
+          </p><br/>
+          <p>
+            See the <a>Demo Walkthrough</a> and <a href="https://github.com/fmelp/hybrid-dapp">Project README</a> for instruction.
+          </p>
+        </div>
+        <Divider className="line"/>
+        <div>
+          <div className="acct-block">
+            <label for="acct-name" style={{height: 36, marginTop: 9}}><p className="step">Step 1</p>Enter Your Account Name</label>
+              <Input
+                name="acct-name"
+                className="acct-input"
                 placeholder='Account Name'
                 value={pactContext.accountName}
                 onChange={(e) => pactContext.setAccountName(e.target.value)}
-                action={
-                   <Button
-                   color='yellow'
-                   onClick={() => pactFecth()}
-                   >
-                    <Icon name="redo"/>
-                    update
-                   </Button>
-                 }
               />
-          </Form.Field>
-        </Form>
-        <Message color="pink" style={{marginLeft: 100, marginRight: 100}}>
-          <Message.Header>
-            KDA Balance:
-          </Message.Header>
-          <div>
-            {pactContext.coinBalance}
+                <Button
+                    primary
+                    onClick={() => pactFecth()}
+                    disabled={!pactContext.accountName}
+                  >
+                  Refresh Balances
+                </Button>
+        </div>
+        <div className="flex-container">
+          <div style={{backgroundColor: "#c9f3fc", marginLeft: 0}}>
+            <div className="info-block" style={{backgroundColor: "#a6effe"}}>
+              <div>
+                <p>Currency:</p>
+                <b>Kadena(KDA)</b>
+              </div>
+              <div>
+                <p>Network:</p>
+                <b>Kadena Public</b>
+              </div>
+            </div>
+            <div className="info-block">
+              <div className="account-label">Account Balance</div>
+               <div>
+                <Input className="amount-input" value={pactContext.coinBalance}/>
+               </div>
+            </div>
+            <Divider className="step-line"/>
+            <div className="transfer-block">
+              <p className="step">Step 2</p>
+              <p>Buy StablecoinX (KDA to SCX)</p>
+            </div>
+            <div>
+            <Input
+              className="buy-input"
+              placeholder='Amount to Buy'
+              value={amountBuy}
+              onChange={(e) => setAmountBuy(e.target.value)}
+            />
+            <Button
+              primary
+              className="buy-button"
+              disabled={isNaN(amountBuy) || amountBuy === ""}
+              onClick={() =>  pactContext.buyHT(amountBuy)}
+            >
+             Buy SCX
+             <Icon name='right arrow' />
+            </Button>
+            </div>
           </div>
-        </Message>
-        <Message color="orange" style={{marginLeft: 100, marginRight: 100}}>
-          <Message.Header>
-            Megabank Savings Account Balance:
-          </Message.Header>
-          <div>
-            {pactContext.cwBalance}
-          </div>
-        </Message>
-        <Message color="yellow" style={{marginLeft: 100, marginRight: 100}}>
-          <Message.Header>
-            Megabank Checking Account Balance:
-          </Message.Header>
-          <div>
-            {pactContext.kuroBalance}
-          </div>
-        </Message>
-        <Button
-            style={{
-              backgroundColor: "#f4aa3c",
-              color: "white",
-              marginBottom: 10,
-              marginTop: 20,
-              width: 340,
-              }}
-            onClick={() => pactFecth()}
-            disabled={!pactContext.accountName}
-          >
-          Refresh Balances
-        </Button>
-      </Grid.Column>
-      <Grid.Column style={{overflow: "auto", backgroundColor: "#f4aa3c"}}>
-        <Form>
-          <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 70, marginBottom: 20, textAlign: 'center'}}>
-            Savings Account Actions
-          </Header>
-          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
-            <label style={{color: "white"}}>Buy Megabank Coin (KDA -> MBC)
-              <Popup
-                trigger={
-                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
-                }
-                position='top center'
-              >
-                <Popup.Header>What is  Megabank Coin? </Popup.Header>
-                <Popup.Content>When you buy a Megabank Coin, you are trading your KDA 1:1 with this new digital currency that is spendable instantly (no need to wait for blockchain confirmation times). You will only be able to transfer these funds to pay others once you transfer them to your checking account. Note that you can always convert Megabank coins in your savings account back to KDA at the same 1:1 ratio.</Popup.Content>
-              </Popup>
-            </label>
-              <Form.Input
-                style={{width:"440px"}}
-                icon='dollar sign'
-                iconPosition='left'
-                placeholder='Amount to Buy'
-                value={amountBuy}
-                onChange={(e) => setAmountBuy(e.target.value)}
-                action={
-                   <Button
-                   color={(!isNaN(amountBuy) && amountBuy !== "") ? "orange" : "grey"}
-                   disabled={isNaN(amountBuy) || amountBuy === ""}
-                   onClick={() =>  pactContext.buyHT(amountBuy)}
-                   >
-                    buy MBC
-                   </Button>
-                 }
-              />
-          </Form.Field>
-          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
-            <label style={{color: "white"}}>Sell Megabank Coin (MBC -> KDA)
-              <Popup
-                trigger={
-                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
-                }
-                position='top center'
-              >
-                <Popup.Header>What is Selling Megabank coin? </Popup.Header>
-                <Popup.Content>When you sell Megabank coin, you are converting it back to KDA at a 1:1 ratio. Please note you need to have that amount of Megabank coin in your savings account before cashing out. If you still have the balance in your checking account, please transfer it to savings before attempting to cash out.</Popup.Content>
-              </Popup>
-            </label>
-              <Form.Input
-                style={{width:"440px"}}
-                icon='dollar sign'
-                iconPosition='left'
-                placeholder='Amount to Sell'
-                value={amountSell}
-                onChange={(e) => setAmountSell(e.target.value)}
-                action={
-                   <Button
-                   color={(!isNaN(amountSell) && amountSell !== "") ? "orange" : "grey"}
-                   disabled={isNaN(amountSell) || amountSell === ""}
-                   onClick={() =>  pactContext.sellHT(amountSell)}
-                   >
-                    sell MBC
-                   </Button>
-                 }
-              />
-          </Form.Field>
-          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
-            <label style={{color: "white"}}>Transfer to Checking Account
-              <Popup
-                trigger={
-                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
-                }
-                position='top center'
-              >
-                <Popup.Header>What is Transfering To Checking Account? </Popup.Header>
-                <Popup.Content>Transfering to your checking account allows you to spend your Megabank coins instananeously by sending it to any participating individual or business.</Popup.Content>
-              </Popup>
-            </label>
-              <Form.Input
-                style={{width:"440px"}}
-                icon='exchange'
-                iconPosition='left'
-                placeholder='Amount to Transfer to Checking'
-                value={amountToKuro}
-                onChange={(e) => setAmountToKuro(e.target.value)}
-                action={
-                   <Button
-                   style={{width: 96}}
-                   color={(!isNaN(amountToKuro) && amountToKuro !== "") ? "orange" : "grey"}
-                   disabled={isNaN(amountToKuro) || amountToKuro === ""}
-                   onClick={() =>  pactContext.transferCWKuro(amountToKuro)}
-                   >
-                    transfer
-                   </Button>
-                 }
-              />
-          </Form.Field>
-        </Form>
-        <Form>
-          <Header as="h6" style={{color:'white', fontWeight: 'bold', fontSize: 30, marginTop: 40, marginBottom: 20, textAlign: 'center'}}>
-            Checking Account Actions
-          </Header>
-          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px"}} >
-            <label style={{color: "white"}}>Transfer to Savings account
-              <Popup
-                trigger={
-                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
-                }
-                position='top center'
-              >
-                <Popup.Header>What is Transfering To Savings Account? </Popup.Header>
-                <Popup.Content>Transfering to your savings account allows you to cash out your Megabank coins back to KDA at a 1:1 ratio once the transfer between checking and savings account is complete</Popup.Content>
-              </Popup>
-            </label>
-              <Form.Input
-                style={{width:"440px"}}
-                icon='exchange'
-                iconPosition='left'
-                placeholder='Amount to Transfer to Savings'
-                value={amountToCW}
-                onChange={(e) => setAmountToCW(e.target.value)}
-                action={
-                   <Button
-                   style={{width: 96}}
-                   color={(!isNaN(amountToCW) && amountToCW !== "") ? "orange" : "grey"}
-                   disabled={isNaN(amountToCW) || amountToCW === ""}
-                   onClick={() =>  pactContext.transferKuroCW(amountToCW)}
-                   >
-                    transfer
-                   </Button>
-                 }
-              />
-          </Form.Field>
-          <Form.Field  style={{width:"440px", margin: "0 auto", marginTop: "10px", marginBottom: 100}} >
-            <label style={{color: "white"}}>Pay People or Businesses
-              <Popup
-                trigger={
-                  <Icon name='help circle' style={{"marginLeft": "2px"}}/>
-                }
-                position='top center'
-              >
-                <Popup.Header>Who can I pay? </Popup.Header>
-                <Popup.Content>You can pay any entity (indiviudal or business), with a registered Megabank coin account in a cryptographically safe, but instantaneous manner</Popup.Content>
-              </Popup>
-            </label>
+          <div style={{backgroundColor: "#d3e4ff"}}>
+            <div className="info-block" style={{backgroundColor: "#aacbff"}}>
+              <div>
+                <p>Currency:</p>
+                <b>StablecoinX (SCX)</b>
+              </div>
+              <div>
+                <p>Network:</p>
+                <b>Kadena Public</b>
+              </div>
+            </div>
+            <div className="info-block">
+              <div className="account-label">Account Balance</div>
+               <div>
+                <Input className="amount-input" value={pactContext.cwBalance}/>
+               </div>
+            </div>
+            <Divider className="step-line"/>
+            <div className="middle">
+              <div className="transfer-block">
+                <p className="step">Step 3</p>
+                <p>Transfer StablecoinX to SCX InstantPay</p>
+              </div>
             <div>
               <Input
-                style={{width:"440px", marginBottom: 3}}
-                icon='user'
-                iconPosition='left'
+                className="buy-input"
+                placeholder='Amount to Transfer'
+                value={amountToKuro}
+                onChange={(e) => setAmountToKuro(e.target.value)}
+                />
+                <Button
+                  primary
+                  className="buy-button"
+                  disabled={isNaN(amountToKuro) || amountToKuro === ""}
+                  onClick={() =>  pactContext.transferCWKuro(amountToKuro)}
+                >Transfer
+                <Icon name='right arrow' />
+                </Button>
+            </div>
+            </div>
+            <Divider className="step-line"/>
+            <div className="transfer-block">
+              <p className="step">Step 6</p>
+              <p>Sell StablecoinX (SCX to KDA)</p>
+            </div>
+            <div>
+              <Input
+                className="buy-input"
+                value={amountSell}
+                placeholder="Amount to Sell"
+                onChange={(e) => setAmountSell(e.target.value)}
+              />
+              <Button
+                primary
+                className="buy-button"
+                disabled={isNaN(amountSell) || amountSell === ""}
+                onClick={() =>  pactContext.sellHT(amountSell)}
+              >
+              <Icon name='left arrow' />
+               Sell SCX
+             </Button>
+            </div>
+          </div>
+          <div style={{backgroundColor: "#e5dbff"}}>
+            <div className="info-block" style={{backgroundColor: "#bea5ff"}}>
+            <div>
+              <p>Currency:</p>
+              <b>SCX InstantPay</b>
+            </div>
+            <div>
+              <p>Network:</p>
+              <b>Kadena Private </b>
+            </div>
+            </div>
+            <div>
+              <div className="info-block">
+                <div className="account-label">Account Balance</div>
+                <div>
+                  <Input className="amount-input" value = {pactContext.kuroBalance}/>
+                </div>
+              </div>
+              <Divider className="step-line"/>
+              <div className="middle">
+                <div className="transfer-block">
+                  <p className="step">Step 4</p>
+                  <p>Transfer between SCX InstantPay accounts</p>
+                </div>
+              <div>
+              <Input
+                className="buy-input"
                 placeholder='Account Name'
                 value={transferTo}
                 onChange={(e) => setTransferTo(e.target.value)}
               />
-              <Input
-                style={{width:"440px"}}
-                icon='dollar sign'
-                iconPosition='left'
-                placeholder='Amount'
-                value={transferAmount}
-                onChange={(e) => setTransferAmount(e.target.value)}
-                action={
-                   <Button
-                   color={(!isNaN(transferAmount) && transferAmount !== "" && transferTo !== "") ? "orange" : "grey"}
-                   disabled={isNaN(transferAmount) || transferAmount === "" || transferTo === ""}
-                   onClick={() =>  pactContext.transferInKuro(transferTo, transferAmount)}
-                   >
-                    pay MBC
-                   </Button>
-                 }
-              />
+                <Button
+                  primary
+                  className="buy-button"
+                  disabled={isNaN(transferAmount) || transferAmount === "" || transferTo === ""}
+                  onClick={() =>  pactContext.transferInKuro(transferTo, transferAmount)}
+                > Transfer
+                <Icon name='right arrow' />
+                </Button>
+                <Input
+                  className="buy-input"
+                  placeholder='Amount'
+                  value={transferAmount}
+                  onChange={(e) => setTransferAmount(e.target.value)}
+                />
+              </div>
             </div>
-          </Form.Field>
-        </Form>
-      </Grid.Column>
-    </Grid>
+              <Divider className="step-line"/>
+              <div className="transfer-block">
+                <p className="step">Step 5</p>
+                <p>Transfer SCX InstantPay to StablecoinX</p>
+              </div>
+              <div>
+                <Input
+                  className="buy-input"
+                  placeholder='Amount to Transfer'
+                  value={amountToCW}
+                  onChange={(e) => setAmountToCW(e.target.value)}
+                  />
+                <Button
+                  primary
+                  className="buy-button"
+                  disabled={isNaN(amountToCW) || amountToCW === ""}
+                  onClick={() =>  pactContext.transferKuroCW(amountToCW)}
+                >
+                <Icon name='left arrow' />
+                Transfer</Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <img src={require("../powered_by_kadena.png")} style={{height:40, marginLeft: 735}}/>
+    </div>
   );
 }
 
