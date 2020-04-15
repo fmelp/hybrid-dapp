@@ -2,16 +2,40 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-
-
-}
 
 .app {
+  margin: 50px;
   font-family: "Avenir Next" !important;
-  margin-left: 32px;
 }
+
+div{
+  margin: auto;
+}
+p {
+  margin: 0 !important;
+}
+input {
+  font-family: "Avenir Next" !important;
+}
+.header1 {
+  margin-top: 25px;
+  font-family: "Avenir Next" !important;
+  width: 802px;
+  height: 49px;
+  font-size: 36px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #4a4a4a;
+}
+
+.header2 {
+  font-weight: 500;
+  font-style: italic;
+}
+
 label {
   display: block;
   float: left;
@@ -54,9 +78,11 @@ label {
   height: 1px;
   border: solid 2px #ffffff;
 }
+
 .line {
+  margin-left: 0;
   margin-top: 10px;
-  margint-bottom: 10px;
+  margin-bottom: 10px;
   width: 959px;
   height: 2px;
   border: solid 1px #979797;

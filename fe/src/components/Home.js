@@ -32,11 +32,11 @@ const Home = () => {
 
 
   return (
-    <div className="app">
-      <div textAlign="center" style={{overflow: "auto"}}>
-        <h1 style={{color:'black', fontWeight: 'bold', fontSize: 40, marginTop: 20}}>
-          Stablecoin Instant Pay Hybrid Blockchain Demo
-        </h1>
+    <div className="app" textAlign="center" >
+      <div style={{overflow: "auto"}}>
+        <p className="header1">
+          Stablecoin Instant Pay <span className="header2"> Hybrid Blockchain Demo</span>
+        </p>
         <div className="sub-header">
           <p>
             Interoperate between public and private blockchain networks through stablecoin smart contracts.
@@ -138,8 +138,6 @@ const Home = () => {
             <div>
             <input
               className="buy-input"
-              icon='exchange'
-              iconPosition='left'
               placeholder='Amount to Transfer'
               value={amountToKuro}
               onChange={(e) => setAmountToKuro(e.target.value)}
