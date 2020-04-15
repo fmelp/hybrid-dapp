@@ -41,6 +41,7 @@ const Home = () => {
           <p>
             Interoperate between public and private blockchain networks through stablecoin smart contracts.
           </p>
+          <br/>
           <p>
             See the <a>Demo Walkthrough</a> and <a>Project README</a> for instruction.
           </p>
@@ -73,7 +74,7 @@ const Home = () => {
               </button>
           </div>
         <div className="flex-container">
-          <div style={{backgroundColor: "#c9f3fc"}}>
+          <div style={{backgroundColor: "#c9f3fc", marginLeft: 0}}>
             <div className="info-block" style={{backgroundColor: "#a6effe"}}>
               <div>
                 <p>Currency:</p>
@@ -157,6 +158,7 @@ const Home = () => {
               <input
                 className="buy-input"
                 value={amountSell}
+                placeholder="Amount to Sell"
                 onChange={(e) => setAmountSell(e.target.value)}
               />
               <button
