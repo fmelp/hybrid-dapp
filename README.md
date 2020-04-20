@@ -1,5 +1,5 @@
 # Stablecoin Instant Pay (Kadena Hybrid Blockchain Demo)
-  Stablecoin Instant Pay is a hybrid blockchain demo which allows token transfers between Kadena Public Network (Testnet) and Kadena Kuro Network (Private).
+   Stablecoin Instant Pay is a Kadena hybrid blockchain platform which allows token transfers between Kadena Public Network (Testnet) and Kadena Kuro Network (Private). Visit our website [here](https://hybrid.chainweb.com)
 
 ## Token Descriptions  
   - **Kadena (KDA)**: the native cryptocurrency for the Kadena Public network.
@@ -22,23 +22,23 @@
   5. Enter your Kadena Testnet Account name and click on `Refresh Balances`.
 
 ## Functionality
-### Buy StablecoinX(SCX) with KDA 
+#### Buy StablecoinX(SCX) with KDA 
  1. Set your network to **Testnet** on chainweaver.
  2. Input amount at Step 2.
  3. Sign transaction and wait 1~2 minutes to clear. Click on `Refresh Balances` to check your balance.
-### Transfer StablecoinX(SCX) to SCX InstantPay
+#### Transfer StablecoinX(SCX) to SCX InstantPay
  1. Set your network to **Testnet** on chainweaver.
  2. Input amount at Step 3.
  3. Sign transaction and wait 1~2 minutes to clear. Click on `Refresh Balances` to check your balance.
-### Transfer your balances between SCX InstantPay accounts
+#### Transfer your balances between SCX InstantPay accounts
  1. Set your network to **Kuro** on chainweaver.
  2. Input account name and amount at Step 4.
  3. Sign transaction and click on `Refresh Balances` to check your balance instantly.
-### Transfer SCX InstantPay to StablecoinX(SCX)
+#### Transfer SCX InstantPay to StablecoinX(SCX)
  1. Set your network to **Kuro** on chainweaver.
  2. Input amount at Step 5.
  3. Sign transaction and click on `Refresh Balances` to check your balance instantly.
-### Sell StablecoinX(SCX) for KDA
+#### Sell StablecoinX(SCX) for KDA
  1. Set your network to **Testnet** on chainweaver.
  2. Input amount at Step 6.
  3. Sign transaction and wait 1~2 minutes to clear. Click on `Refresh Balances` to check your balance.
