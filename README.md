@@ -1,5 +1,5 @@
 # Stablecoin Instant Pay (Kadena Hybrid Blockchain Demo)
-  Stablecoin Instant Pay is a hybrid blockchain demo which allows token transfers between Kadena Testnet Network (Public) and Kadena Kuro Network (Private).
+  Stablecoin Instant Pay is a hybrid blockchain demo which allows token transfers between Kadena Public Network (Testnet) and Kadena Kuro Network (Private).
 
 ## Token Descriptions  
   - **Kadena (KDA)**: the native cryptocurrency for the Kadena Public network.
@@ -18,27 +18,27 @@
     - `54.166.153.21:9000`
     - `54.146.43.204:9001`
     - `54.164.36.85:9003`
-  4. Visit the [website](http://hybrid.chainweb.com/)
+  4. Visit the [Demo Website](http://hybrid.chainweb.com/)
   5. Enter your Kadena Testnet Account name and refresh balances.
 
 ## Functionality
   * Buy StablecoinX(SCX) with KDA. (1:1 exchange)
-      1. Set your network to **Testnet** on chainweaver.
-      2. Input amount at Step 2.
-      3. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
+      - Set your network to **Testnet** on chainweaver.
+      - Input amount at Step 2.
+      - Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
   * Transfer SCX to SCX InstantPay.(1:n exchange)
-      1. Set your network to **Testnet** on chainweaver.
-      2. Input amount at Step 3.
-      3. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
+      - Set your network to **Testnet** on chainweaver.
+      - Input amount at Step 3.
+      - Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
   * Transfer your balances between SCX InstantPay accounts. (1:1 exchange)
-      1. Set your network to **Kuro** on chainweaver.
-      2. Input account name and amount at Step 4.
-      3. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
+      - Set your network to **Kuro** on chainweaver.
+      - Input account name and amount at Step 4.
+      - Sign transaction. Click on Refresh Balances to check your balance.
   * Transfer SCX InstantPay to SCX. (n:1 exchange)
-      1. Set your network to **Kuro** on chainweaver.
-      2. Input amount at Step 5.
-      3. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
+      - Set your network to **Kuro** on chainweaver.
+      - Input amount at Step 5.
+      - Sign transaction. Click on Refresh Balances to check your balance.
   * Sell SCX for KDA. (1:1 exchange)
-      1. Set your network to **Testnet** on chainweaver.
-      2. Input amount at Step 6.
-      3. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
+      - Set your network to **Testnet** on chainweaver.
+      - Input amount at Step 6.
+      - Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
