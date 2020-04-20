@@ -23,7 +23,7 @@
 
 ## Functionality
   * Buy StablecoinX(SCX) with KDA. (1:1 exchange)
-      - Set your network to **Testnet** on chainweaver.
+      <ol><li>Set your network to **Testnet** on chainweaver.</li></ol>
       - Input amount at Step 2.
       - Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
   * Transfer SCX to SCX InstantPay.(1:n exchange)
