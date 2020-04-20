@@ -1,7 +1,7 @@
 # Stablecoin Instant Pay (Kadena Hybrid Blockchain Demo)
-   Stablecoin Instant Pay is a Kadena hybrid blockchain platform which allows token transfers between Kadena Public Network (Testnet) and Kadena Private Network (Kuro). Visit our demo [here](https://hybrid.chainweb.com)
 
 ![](hybrid-demo.png)
+   Stablecoin Instant Pay is a Kadena hybrid blockchain platform which allows token transfers between Kadena Public Network (Testnet) and Kadena Private Network (Kuro). Visit our demo [here](https://hybrid.chainweb.com)
 
 ## Token Descriptions  
   - **Kadena (KDA)**: the native cryptocurrency for the Kadena Public network.
@@ -9,7 +9,7 @@
   - **SCX InstantPay**: token used for instant transaction settlement on the private network.
 
 ## Requirements
- - [Chainweaver Wallet](https://www.kadena.io/chainweaver)
+ - Install [Chainweaver Wallet](https://www.kadena.io/chainweaver)
  - A KDA account on Kadena Testnet with balance. (Visit [here](https://faucet.testnet.chainweb.com/) to receive KDA)
 
 ## Getting Started
