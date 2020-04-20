@@ -1,5 +1,4 @@
 # Stablecoin Instant Pay (Kadena Hybrid Blockchain Demo)
-![](hybrid-demo.png)
   Stablecoin Instant Pay is a hybrid blockchain demo which allows token transfers between Kadena Testnet Network (Public) and Kadena Kuro Network (Private).
 
 ## Token Descriptions  
@@ -32,8 +31,8 @@
     2. Input amount at Step 3.
     3. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
   - Transfer your balances between SCX InstantPay accounts. (1:1 exchange)
-    1. Set your network to **Kuro** on chainweaver.
-    2. Input account name and amount at Step 4.
+    1\. Set your network to **Kuro** on chainweaver.
+    2\. Input account name and amount at Step 4.
     3. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
   - Transfer SCX InstantPay to SCX. (n:1 exchange)
     1. Set your network to **Kuro** on chainweaver.
