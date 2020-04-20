@@ -22,23 +22,23 @@
   5. Enter your Kadena Testnet Account name and refresh balances.
 
 ## Functionality
-  * Buy StablecoinX(SCX) with KDA. (1:1 exchange)
+  * Buy StablecoinX(SCX) with KDA.
       - Set your network to **Testnet** on chainweaver.
       - Input amount at Step 2.
       - Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
-  * Transfer SCX to SCX InstantPay.(1:n exchange)
+  * Transfer StablecoinX(SCX) to SCX InstantPay.
       - Set your network to **Testnet** on chainweaver.
       - Input amount at Step 3.
       - Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
-  * Transfer your balances between SCX InstantPay accounts. (1:1 exchange)
+  * Transfer your balances between SCX InstantPay accounts.
       - Set your network to **Kuro** on chainweaver.
       - Input account name and amount at Step 4.
-      - Sign transaction. Click on Refresh Balances to check your balance.
-  * Transfer SCX InstantPay to SCX. (n:1 exchange)
+      - Sign transaction. Click on Refresh Balances to check your balance instantly.
+  * Transfer SCX InstantPay to StablecoinX(SCX).
       - Set your network to **Kuro** on chainweaver.
       - Input amount at Step 5.
-      - Sign transaction. Click on Refresh Balances to check your balance.
-  * Sell SCX for KDA. (1:1 exchange)
+      - Sign transaction. Click on Refresh Balances to check your balance instantly.
+  * Sell StablecoinX(SCX) for KDA.
       - Set your network to **Testnet** on chainweaver.
       - Input amount at Step 6.
       - Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.
