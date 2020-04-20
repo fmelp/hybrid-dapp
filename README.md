@@ -14,10 +14,12 @@
   1. Install [Chainweaver Wallet](https://www.kadena.io/chainweaver)
   2. Open Chainweaver and go to Settings > Network. Click on `Create New Network`.
   3. Name the network as `Kuro` and add the following nodes:
-    - `34.204.71.247:9002`
-    - `54.166.153.21:9000`
-    - `54.146.43.204:9001`
-    - `54.164.36.85:9003`
+    <ul>
+      <li>`34.204.71.247:9002`</li>
+      <li>`54.166.153.21:9000`</li>
+      <li>`54.146.43.204:9001`</li>
+      <li>`54.164.36.85:9003`</li>
+    </ul>
   4. Visit the [Demo Website](http://hybrid.chainweb.com/)
   5. Enter your Kadena Testnet Account name and refresh balances.
 
