@@ -23,22 +23,22 @@
 
 ## Functionality
   - Buy StablecoinX(SCX) with KDA. (1:1 exchange)<br/>
-    1\. Set your network to **Testnet** on chainweaver.<br/>
-    2\. Input amount at Step 2.<br/>
-    3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
+      1\. Set your network to **Testnet** on chainweaver.<br/>
+      2\. Input amount at Step 2.<br/>
+      3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
   - Transfer SCX to SCX InstantPay. SCX Instant Pay is a currency in Kadena Private network.(Kuro) (1:n exchange)<br/>
-    1\. Set your network to **Testnet** on chainweaver.<br/>
-    2\. Input amount at Step 3.<br/>
-    3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
+      1\. Set your network to **Testnet** on chainweaver.<br/>
+      2\. Input amount at Step 3.<br/>
+      3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
   - Transfer your balances between SCX InstantPay accounts. (1:1 exchange)<br/>
-    1\. Set your network to **Kuro** on chainweaver.<br/>
-    2\. Input account name and amount at Step 4.<br/>
-    3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
+      1\. Set your network to **Kuro** on chainweaver.<br/>
+      2\. Input account name and amount at Step 4.<br/>
+      3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
   - Transfer SCX InstantPay to SCX. (n:1 exchange)<br/>
-    1\. Set your network to **Kuro** on chainweaver.<br/>
-    2\. Input amount at Step 5.<br/>
-    3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
+      1\. Set your network to **Kuro** on chainweaver.<br/>
+      2\. Input amount at Step 5.<br/>
+      3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
   - Sell SCX for KDA. (1:1 exchange)<br/>
-    1\. Set your network to **Testnet** on chainweaver.<br/>
-    2\. Input amount at Step 6.<br/>
-    3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
+      1\. Set your network to **Testnet** on chainweaver.<br/>
+      2\. Input amount at Step 6.<br/>
+      3\. Sign transaction and wait 1~2 minutes to clear. Click on Refresh Balances to check your balance.<br/>
