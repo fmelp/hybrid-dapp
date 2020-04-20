@@ -33,11 +33,11 @@
   * Transfer your balances between SCX InstantPay accounts.
       - Set your network to **Kuro** on chainweaver.
       - Input account name and amount at Step 4.
-      - Sign transaction. Click on Refresh Balances to check your balance instantly.
+      - Sign transaction and click on Refresh Balances to check your balance instantly.
   * Transfer SCX InstantPay to StablecoinX(SCX).
       - Set your network to **Kuro** on chainweaver.
       - Input amount at Step 5.
-      - Sign transaction. Click on Refresh Balances to check your balance instantly.
+      - Sign transaction and click on Refresh Balances to check your balance instantly.
   * Sell StablecoinX(SCX) for KDA.
       - Set your network to **Testnet** on chainweaver.
       - Input amount at Step 6.
