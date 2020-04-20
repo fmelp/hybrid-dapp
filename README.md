@@ -12,7 +12,7 @@
 
 ## Getting Started
   1. Install [Chainweaver Wallet](https://www.kadena.io/chainweaver)
-  2. Go to Settings > Network, and click on `Create New Network`.
+  2. Open Chainweaver and go to Settings > Network. Click on `Create New Network`.
   3. Name the network as `Kuro` and add the following nodes:
     - `34.204.71.247:9002`
     - `54.166.153.21:9000`
