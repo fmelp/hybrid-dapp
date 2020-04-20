@@ -1,5 +1,5 @@
-# Welcome to Stablecoin Instant Pay (Kadena Hybrid Blockchain Demo)
-![demo](hybrid-demo.png)
+# Stablecoin Instant Pay (Kadena Hybrid Blockchain Demo)
+![](hybrid-demo.png)
   Stablecoin Instant Pay is a hybrid blockchain demo which allows token transfers between Kadena Testnet Network (Public) and Kadena Kuro Network (Private).
 
 ## Token Descriptions  
