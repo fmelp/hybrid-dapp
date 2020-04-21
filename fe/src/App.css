@@ -69,6 +69,26 @@ label {
   font-weight: 600;
 }
 
+.triangle-right {
+position: absolute;
+margin-left: 290px ;
+margin-top: 59px ;
+width: 0;
+height: 0;
+border-top: 12px solid transparent;
+border-bottom: 12px solid transparent;
+}
+
+.triangle-left {
+position: absolute;
+margin-top: 59px ;
+margin-left: -23px ;
+width: 0;
+height: 0;
+border-top: 12px solid transparent;
+border-bottom: 12px solid transparent;
+}
+
 .ARROW {
   width: 25px;
   height: 1px;
