@@ -84,6 +84,7 @@ const Home = () => {
             </div>
             <Divider className="step-line"/>
             <div className="transfer-block">
+              <div className="triangle-right" style={{ borderLeft: "13px solid #c9f3fc" }}/>
               <p className="step">Step 2</p>
               <p>Buy StablecoinX (KDA to SCX)</p>
             </div>
@@ -125,6 +126,7 @@ const Home = () => {
             <Divider className="step-line"/>
             <div className="middle">
               <div className="transfer-block">
+                <div className="triangle-right" style={{ borderLeft: "13px solid #d3e4ff" }}/>
                 <p className="step">Step 3</p>
                 <p>Transfer StablecoinX to SCX InstantPay</p>
               </div>
@@ -147,6 +149,7 @@ const Home = () => {
             </div>
             <Divider className="step-line"/>
             <div className="transfer-block">
+              <div className="triangle-left" style={{ borderRight: "13px solid #d3e4ff" }}/>
               <p className="step">Step 6</p>
               <p>Sell StablecoinX (SCX to KDA)</p>
             </div>
@@ -189,6 +192,7 @@ const Home = () => {
               <Divider className="step-line"/>
               <div className="middle">
                 <div className="transfer-block">
+                  <div className="triangle-right" style={{ borderLeft: "13px solid #e5dbff" }}/>
                   <p className="step">Step 4</p>
                   <p>Transfer between SCX InstantPay accounts</p>
                 </div>
@@ -217,6 +221,7 @@ const Home = () => {
             </div>
               <Divider className="step-line"/>
               <div className="transfer-block">
+                <div className="triangle-left" style={{ borderRight: "13px solid #e5dbff" }}/>
                 <p className="step">Step 5</p>
                 <p>Transfer SCX InstantPay to StablecoinX</p>
               </div>
