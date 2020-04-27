@@ -58,7 +58,6 @@ export class PactStore extends React.Component {
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
             Pact.lang.mkCap("transfer capability", "description of transfer cap", "coin.TRANSFER", [this.state.accountName, "hybrid-mg", parseFloat(amount)]),
           ],
-          sender: this.state.accountName,
           gasLimit: 5000,
           chainId: "0",
           ttl: 28800,
@@ -83,7 +82,6 @@ export class PactStore extends React.Component {
             Pact.lang.mkCap("transfer capability", "description of transfer cap", "coin.TRANSFER", ["hybrid-mg", this.state.accountName, parseFloat(amount)]),
             Pact.lang.mkCap("Registered account capability", "is registered in hybrid-exchange", "user.hybrid-exchange.REGISTERED_USER", [this.state.accountName]),
           ],
-          sender: this.state.accountName,
           gasLimit: 5000,
           chainId: "0",
           network: "testnet04",
@@ -138,7 +136,6 @@ export class PactStore extends React.Component {
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
             Pact.lang.mkCap("Registered account capability", "is registered in hybrid-exchange", "user.hybrid-exchange.REGISTERED_USER", [this.state.accountName])
           ],
-          sender: this.state.accountName,
           gasLimit: 5000,
           chainId: "0",
           ttl: 28800,
@@ -162,7 +159,6 @@ export class PactStore extends React.Component {
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
             Pact.lang.mkCap("Registered account capability", "is registered in hybrid-exchange", "hybrid-token.REGISTERED_USER", [this.state.accountName])
           ],
-          sender: this.state.accountName,
           gasLimit: 5000,
           chainId: "0",
           ttl: 28800,
@@ -186,7 +182,6 @@ export class PactStore extends React.Component {
             Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
             Pact.lang.mkCap("Registered account capability", "is registered in hybrid-exchange", "hybrid-token.REGISTERED_USER", [this.state.accountName])
           ],
-          sender: this.state.accountName,
           gasLimit: 5000,
           chainId: "0",
           ttl: 28800,
