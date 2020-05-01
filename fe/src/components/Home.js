@@ -42,7 +42,7 @@ const Home = () => {
             Interoperate between public and private blockchain networks through stablecoin smart contracts.
           </p><br/>
           <p>
-            See the <a>Demo Walkthrough</a> and <a href="https://github.com/fmelp/hybrid-dapp">Project README</a> for instructions.
+            See the <a href="https://medium.com/kadena-io/experience-hybrid-blockchain-e19699b1c468">Demo Walkthrough</a> and <a href="https://github.com/fmelp/hybrid-dapp">Project README</a> for instructions.
           </p>
         </div>
         <Divider className="line"/>
