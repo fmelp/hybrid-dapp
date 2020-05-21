@@ -228,6 +228,6 @@
 
 )
 
-;(create-table token-table)
-;(create-table tx-table-2)
-; (init-admin-account)
+(create-table token-table)
+(create-table tx-table-2)
+(init-admin-account)

@@ -10,6 +10,7 @@ async function kuroListen() {
   try {
     //get open txs
     const txsRes = await utils.localKuro(`(map (hybrid-token.get-tx) (hybrid-token.get-tx-keys))`);
+    console.log(txsRes.result);
     const txsOpen = txsRes.result.data.filter(x => x.status === 'open');
     if (txsOpen.length !== 0) {
       //prepare pact code

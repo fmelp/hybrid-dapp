@@ -82,7 +82,7 @@ async function sendKuro(pactCode, keysets) {
       Pact.lang.mkCap("Gas capability", "description of gas cap", "coin.GAS", []),
       Pact.lang.mkCap("admin cap", "description admin cap", "hybrid-token.ADMIN", []),
     ],
-    networkId: "kuro",
+    networkId: "devnet00",
     envData: {
       [config.adminAccount.id] : {
         "keys": [config.adminAccount.keypair.publicKey],
