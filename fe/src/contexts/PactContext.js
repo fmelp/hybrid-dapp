@@ -5,7 +5,7 @@ const Context = React.createContext();
 
 const hosts = ["us2", "us1", "eu1","eu2","ap1","ap2"]
 const kuroUrls = ["http://34.204.71.247:9002", "http://54.166.153.21:9000", "http://54.146.43.204:9001", "http://54.164.36.85:9003"]
-const createAPIHost = (network, chainId) => `https://${network}.testnet.chainweb.com/chainweb/0.0/testnet04/chain/${chainId}/pact`
+const createAPIHost = (network, chainId) => `https://api.testnet.chainweb.com/chainweb/0.0/testnet04/chain/${chainId}/pact`
 const dumKeyPair = Pact.crypto.genKeyPair();
 
 const savedAcct = localStorage.getItem('acct');
